@@ -4,6 +4,8 @@ Datos a Completar
 
 Ingresar al servidor:
 
+Local host: http://localhost:8080/phpmyadmin/
+
 Completar en archivo .env los siguientes campos: 
 
     db_host='192.168.64.6'
