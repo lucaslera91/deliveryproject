@@ -7,6 +7,7 @@ const adminJS = require('./admin');
 
 
 
+// consulta generica
 
 async function consutlaGenerica(tabla, filtro) {
     debugger;
@@ -22,6 +23,7 @@ async function consutlaGenerica(tabla, filtro) {
     return resultado;
 }
 
+// Agregar generico
 
 async function agregarGenerico(tabla, parametros) {
     let resultado;
@@ -49,6 +51,7 @@ async function modificacionProductoGenerico(tabla, parametros) {
     return resultado;
 }
 
+// Elimino generico
 
 async function eliminarGenerico(tabla, parametros) {
     let resultado;

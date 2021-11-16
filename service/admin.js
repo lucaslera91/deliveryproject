@@ -2,21 +2,21 @@ const { Sequelize, DataTypes, Op } = require('sequelize');
 const dotenv = require('dotenv');
 dotenv.config();
 
+// Conect to data base
+
 const sequelize = new Sequelize(process.env.db_name, process.env.db_USUARIO, process.env.db_CONTRASE,
     {
         host: process.env.db_host,
         dialect: process.env.db_DIALECT,
         port: process.env.db_PORT,
-        // dialectOptions: {
-        //     useUTC: false,
-        // },
         timezone: process.env.db_TIMEZONE,
-        
         define: {
             timestamps: false
         }
     });
 
+
+    // Create admin table - this is used to manage "pedidos"
 
 const Pro = sequelize.define('admin', {
 
@@ -35,19 +35,19 @@ const Pro = sequelize.define('admin', {
         allowNull: false,
         timestamps: true,
         timezone: '+08:00',
-        
+
         defaultValue: sequelize.literal('CURRENT_TIMESTAMP()')
         // get() {
         //     return moment(this.getDataValue('hora')).format('DD/MM/YYYY h:mm:ss');
         // }
     },
-//     createdAt: {
-//         type: DataType.DATE,
-// //note here this is the guy that you are looking for                   
-//       get() {
-//             return moment(this.getDataValue('createdAt')).format('DD/MM/YYYY h:mm:ss');
-//         }
-//     },
+    //     createdAt: {
+    //         type: DataType.DATE,
+    // //note here this is the guy that you are looking for                   
+    //       get() {
+    //             return moment(this.getDataValue('createdAt')).format('DD/MM/YYYY h:mm:ss');
+    //         }
+    //     },
     descripcion: {
         type: DataTypes.INTEGER(50),
         allowNull: false,
@@ -72,52 +72,53 @@ const Pro = sequelize.define('admin', {
         type: DataTypes.STRING(400),
         allowNull: false,
         timestamps: false
-    }},
-
+    }
+},
     // timestamps: false},
-
-    {freezeTableName: true}
-
+    { freezeTableName: true }
 );
 
-async function consultaAdmin(){
 
+// consultas tabla admin
+
+async function consultaAdmin() {
     const datos = await Pro.findAll({
-        
     });
-
     return datos;
 }
 
-
+// agregar un pedido en Admin
 async function agregarPedido(param) {
     debugger;
     const crear = await Pro.create(param);
     debugger;
 }
+
+// modificar el estado de un pedido de tabla Admin
+
 async function modificarEstado(status, usuario) {
-          //[{atributo: modificacion}, {condicion: fieldRequired}]
-        //let condicion = param[0];   
-        //let atributo = param[1];
-    
-        const modificar = await Pro.update(
-            {estado: status}
-            , {
-                where: {usuario: usuario}
-            });
-        return modificar
-        //return modificar
+    //[{atributo: modificacion}, {condicion: fieldRequired}]
+    //let condicion = param[0];   
+    //let atributo = param[1];
+
+    const modificar = await Pro.update(
+        { estado: status }
+        , {
+            where: { usuario: usuario }
+        });
+    return modificar
+    //return modificar
 }
 
-module.exports  = {
+module.exports = {
     //actualizarPedido,
-   // consultarCarrito,
+    // consultarCarrito,
     //consutltaUsuarios,
     agregarPedido,
     modificarEstado,
     consultaAdmin
-   // modificarUsuarios,
-   // consultarFav,
+    // modificarUsuarios,
+    // consultarFav,
     //agregarFav
 }
 

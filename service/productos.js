@@ -3,7 +3,7 @@ const { Sequelize, DataTypes, Op } = require('sequelize');
 const dotenv = require('dotenv');
 dotenv.config();
 
-
+// Sequelize must conet to data Base. To make only one conection would have been best. what is done, is done.
 const sequelize = new Sequelize(process.env.db_name, process.env.db_USUARIO, process.env.db_CONTRASE,
     {
         host: process.env.db_host,
@@ -13,15 +13,14 @@ const sequelize = new Sequelize(process.env.db_name, process.env.db_USUARIO, pro
         //     useUTC: false,
         // },
         timezone: process.env.db_TIMEZONE,
-        
         define: {
             timestamps: false
         }
+    });
 
-});
-  
+// Crear tabla Poductos!
+
 const Pro = sequelize.define('productos', {
-
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true
@@ -42,10 +41,10 @@ const Pro = sequelize.define('productos', {
         type: DataTypes.STRING(400),
         allowNull: false,
     },
-
     timestamps: false
-
 });
+
+// This array is all the information the product has
 
 let arrayAttributosProductos = [
     'id',
@@ -55,44 +54,37 @@ let arrayAttributosProductos = [
     'imagen'
 ];
 
-
+// Consulta de productos con filtro segun parametros
 
 async function consutltaProducto(criterioFiltro) {
-    //console.log('hola');
     if (criterioFiltro == "") {
         const datos = await Pro.findAll({
             attributes: arrayAttributosProductos
         })
         //console.log(datos);
-
         return datos;
     } else {
         const datos = await Pro.findAll({
             //where: {nombre: criterioFiltro},
             where:
-                criterioFiltro
-            ,
+                criterioFiltro,
+
             attributes: arrayAttributosProductos
         });
-        //console.log(datos);
-
+        
         return datos;
     }
 }
 
-// where: {
-//     [Op.or]: [
-//         {nombre: "Ensalada"},
-//         {nombre: "Sushi"}
-//     ]
-// },
-
+// Agregar productos segun parametros
 
 async function agregarProducto(param) {
     debugger;
     const crear = await Pro.create(param);
     return { msg: `${crear}, fue creado` }
 }
+
+// Eliminar parametros segun parametros
 
 async function eliminarProducto(param) {
     debugger;
@@ -101,6 +93,8 @@ async function eliminarProducto(param) {
     });
     debugger;
 }
+
+// Modificar productos segun parametros
 
 async function modificarProductos(param) {
     //[{atributo: modificacion}, {condicion: fieldRequired}]
@@ -111,9 +105,8 @@ async function modificarProductos(param) {
     const modificar = await Pro.update(
         atributo
         , {
-            where: {nombre: condicion}
+            where: { nombre: condicion }
         });
-    
     return modificar
 }
 

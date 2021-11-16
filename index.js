@@ -27,14 +27,12 @@ try {
     // Note - error messages will vary depending on browser
 }
 
-
-
 // registrar usuario
 servidor.get('/hola', (req, res) => {
-
-
     return res.json({ msg: 'Correct' });
 })
+
+
 //middlewere.checkJWT,
 servidor.post('/registrarse', middlewere.checkJWT, async (req, res) => {
     console.log("hola");
@@ -52,29 +50,29 @@ servidor.post('/registrarse', middlewere.checkJWT, async (req, res) => {
         tel === undefined || tel === null ||
         dir === undefined || dir === null ||
         password === undefined || password === null
-        ) {
+    ) {
         // do something 
         return res.status(500).json({ msg: '404 - Error en los datos' });
-    } else{
+    } else {
 
-// chequear si existe en la base de datos (usuario y correo)
+        // chequear si existe en la base de datos (usuario y correo)
 
-let busqueda = await servicio.consutlaGenerica('usuarios', user);
+        let busqueda = await servicio.consutlaGenerica('usuarios', user);
 
-if (busqueda == "") {
-    const dato = await servicio.agregarGenerico('usuarios', {
-        nombre_apellido: name,
-        usuario: user,
-        correo: email,
-        contrasena: password,
-        direccion: dir,
-        telefono: tel
-    })
-    return res.status(200).json({ msg: 'Register correct', user });
-} else {
-    res.status
-    return res.status(404).json({ msg: '404 - Register ya existe', busqueda });
-}
+        if (busqueda == "") {
+            const dato = await servicio.agregarGenerico('usuarios', {
+                nombre_apellido: name,
+                usuario: user,
+                correo: email,
+                contrasena: password,
+                direccion: dir,
+                telefono: tel
+            })
+            return res.status(200).json({ msg: 'Register correct', user });
+        } else {
+            res.status
+            return res.status(404).json({ msg: '404 - Register ya existe', busqueda });
+        }
     }
 }
 );
@@ -91,53 +89,53 @@ servidor.post('/login', async (req, res) => {
     const us = req.body.usuario;
     const psswd = req.body.contrasena;
 
-    if (us=== undefined || us === null ||
+    if (us === undefined || us === null ||
         psswd === undefined || psswd === null
-        ) {
-        // do something 
+    ) {
+        // do something when error
         return res.status(500).json({ msg: '404 - Error en los datos' });
-    } else{
-
-    //encontrar info de este "usuario"
-    //{ usuario: 'AntoNuevo' }
-    const data = await servicio.consutlaGenerica('usuarios', us);
-    console.log(data);
-    if (data == "") {
-        //agregar(name, user, email, password, dir, tel);
-        return res.json({ msg: `Usuario ${us}, no existe` })
     } else {
-        //revisar contraseña
-        if (data[0].contrasena == psswd) {
-            //ingresar
 
-            const firma = process.env.jwt_Firma;
-            const info = { id: data[0].id, rol: data[0].rol };
-            //console.log(info);
-            const token = jwt.sign(info, firma);
-            return res.json({ msg: 'log in ok', info: info, token: token })
+        //encontrar info de este "usuario"
+        //{ usuario: 'AntoNuevo' }
+        const data = await servicio.consutlaGenerica('usuarios', us);
+        console.log(data);
+        if (data == "") {
+            //agregar(name, user, email, password, dir, tel);
+            return res.json({ msg: `Usuario ${us}, no existe` })
         } else {
-            return res.json({ msg: `${psswd}, contrase incorrecta` })
+            //revisar contraseña
+            if (data[0].contrasena == psswd) {
+                //ingresar
+                const firma = process.env.jwt_Firma;
+                const info = { id: data[0].id, rol: data[0].rol };
+                //console.log(info);
+                const token = jwt.sign(info, firma);
+                return res.json({ msg: 'log in ok', info: info, token: token })
+            } else {
+                return res.json({ msg: `${psswd}, contrase incorrecta` })
+            }
         }
-    }
     }
 
 });
 
-//get de los productos
+// Get de los productos
+
 servidor.get('/productos', middlewere.checkJWT, async (req, res) => {
     debugger;
     const dat = await servicio.consutlaGenerica('productos', "");
     res.status(200).json({ dat });
 })
 
-
 servidor.post('/productosTest', middlewere.checkJWT, async (req, res) => {
     debugger;
-    
+
     console.log(req.body);
     const datTest = await servicio.consutlaGenerica('productos', { nombre: req.body.nombre });
     res.json({ datTest });
 })
+
 //{nombre: criterioFiltro}
 
 // { "nombre": "pepe",
@@ -147,9 +145,6 @@ servidor.post('/productosTest', middlewere.checkJWT, async (req, res) => {
 //     "dir": "dir dir 11",
 //     "tel": "2222222222"
 //     }
-
-
-
 
 // ADMINISTRADOR - AGREGAR PRODUCTO
 
@@ -162,29 +157,29 @@ servidor.post('/productos/add', middlewere.checkJWT, middlewere.middleWereAdmin,
     const im = req.body.imagen;
 
     if (criterio === undefined || criterio === null ||
-        nom=== undefined || nom === null ||
+        nom === undefined || nom === null ||
         desc === undefined || desc === null ||
         pre === undefined || pre === null ||
         dir === undefined || dir === null ||
         im === undefined || im === null
-        ) {
-        // do something 
+    ) {
+        // do something que indique error
         return res.status(500).json({ msg: '404 - Error en los datos' });
-    } else{
-    let busqueda = await servicio.consutlaGenerica('productos', criterio);
-    // chequear si existe en la base de datos (usuario y correo)
-    if (busqueda == "") {
-        const dato = await servicio.agregarGenerico('productos', {
-            nombre: nom,
-            descripcion: desc,
-            precio: pre,
-            imagen: im,
-        })
-        return res.status(200).json({ msg: 'fue creado con exito', dato });
     } else {
-        return res.status(404).json({ msg: 'Producto ya existe', busqueda });
+        let busqueda = await servicio.consutlaGenerica('productos', criterio);
+        // chequear si existe en la base de datos (usuario y correo)
+        if (busqueda == "") {
+            const dato = await servicio.agregarGenerico('productos', {
+                nombre: nom,
+                descripcion: desc,
+                precio: pre,
+                imagen: im,
+            })
+            return res.status(200).json({ msg: 'fue creado con exito', dato });
+        } else {
+            return res.status(404).json({ msg: 'Producto ya existe', busqueda });
+        }
     }
-}
 });
 
 //EJEMPLO
@@ -198,22 +193,22 @@ servidor.post('/productos/add', middlewere.checkJWT, middlewere.middleWereAdmin,
 
 
 servidor.delete('/productos/remove/{nombre}', middlewere.checkJWT, middlewere.middleWereAdmin, async (req, res) => {
-    debugger;
+    //debugger;
     const nomb = req.params.nombre;
     if (nomb === undefined || nomb === null
-        ) {
-        // do something 
+    ) {
+        // do something que indique error
         return res.status(500).json({ msg: '404 - Error en los datos' });
-    } else{
-    let busqueda = await servicio.consutlaGenerica('productos', nomb);
-    if (busqueda == "") {
-        return res.status(404).json({ msg: 'Este producto no existe: ', busqueda });
     } else {
-        debugger;
-        let quitar = await servicio.eliminarGenerico('productos', nomb);
-        return res.status(200).json({ msg: 'Producto eliminado: ', quitar });
+        let busqueda = await servicio.consutlaGenerica('productos', nomb);
+        if (busqueda == "") {
+            return res.status(404).json({ msg: 'Este producto no existe: ', busqueda });
+        } else {
+            debugger;
+            let quitar = await servicio.eliminarGenerico('productos', nomb);
+            return res.status(200).json({ msg: 'Producto eliminado: ', quitar });
+        }
     }
-}
 });
 
 
@@ -225,32 +220,32 @@ servidor.put('/productos', middlewere.checkJWT, middlewere.middleWereAdmin, asyn
     //const firma = 'Pwd';
     //const isID = middlewere.getID(req.headers.authorization, firma);
     if (nom === undefined || nom === null ||
-        desc=== undefined || desc === null ||
+        desc === undefined || desc === null ||
         pre === undefined || pre === null ||
-        im === undefined || im === null 
-        ) {
-        // do something 
+        im === undefined || im === null
+    ) {
+        // do something que indique error
         return res.status(500).json({ msg: '404 - Error en los datos' });
-    } else{
-    debugger;
-    let busqueda = await servicio.consutlaGenerica('productos', { nombre: nom });
-    if (busqueda == "") {
-        return res.status(404).json({ msg: 'Producto no existe', busqueda });
     } else {
-        const prodActualizado = await servicio.modificacionProductoGenerico('productos', [
-            { nombre: nom },
-            {
-                nombre: nom,
-                descripcion: desc,
-                precio: pre,
-                imagen: im
-            }
-        ]);
-        let busquedaActualizada = await servicio.consutlaGenerica('productos', { nombre: nom });
-        //console.log(prodActualizado);
-        return res.status(200).json({ msg: 'Producto actualizado', busquedaActualizada });
+        debugger;
+        let busqueda = await servicio.consutlaGenerica('productos', { nombre: nom });
+        if (busqueda == "") {
+            return res.status(404).json({ msg: 'Producto no existe', busqueda });
+        } else {
+            const prodActualizado = await servicio.modificacionProductoGenerico('productos', [
+                { nombre: nom },
+                {
+                    nombre: nom,
+                    descripcion: desc,
+                    precio: pre,
+                    imagen: im
+                }
+            ]);
+            let busquedaActualizada = await servicio.consutlaGenerica('productos', { nombre: nom });
+            //console.log(prodActualizado);
+            return res.status(200).json({ msg: 'Producto actualizado', busquedaActualizada });
+        }
     }
-}
 
 });
 
@@ -258,6 +253,8 @@ servidor.put('/productos', middlewere.checkJWT, middlewere.middleWereAdmin, asyn
 
 //// C A R R I T T O
 
+// Se modifica el listado de carrito, "Agregando a carrito"
+// Con el nombre se buscan los datos del producto en Base de Datos y se suman a listado
 
 servidor.put('/productos/addCarrito', middlewere.checkJWT, async (req, res) => {
 
@@ -267,40 +264,38 @@ servidor.put('/productos/addCarrito', middlewere.checkJWT, async (req, res) => {
     const nom = req.body.nombre;
     //const price = req.body.precio;
     let array = [];
-    if ( nom=== undefined || nom === null
-        
-        ) {
+    if (nom === undefined || nom === null
+
+    ) {
         // do something 
         return res.status(500).json({ msg: '404 - Error en los datos' });
-    } else{
-    const productoFiltro = await servicio.consutlaGenerica('productos', { nombre: nom });
-    console.log(productoFiltro);
-    //buscar el ID del cliente
-    const codigo = req.headers.authorization;
-    const firma = process.env.jwt_Firma;
+    } else {
+        const productoFiltro = await servicio.consutlaGenerica('productos', { nombre: nom });
+        console.log(productoFiltro);
+        //buscar el ID del cliente
+        const codigo = req.headers.authorization;
+        const firma = process.env.jwt_Firma;
 
-    const idUsuario = middlewere.getID(codigo, firma);
+        const idUsuario = middlewere.getID(codigo, firma);
 
-    const listadoCar = await usuarios.consultarCarrito(idUsuario);
-    if (listadoCar[0].carrito != '') {
+        const listadoCar = await usuarios.consultarCarrito(idUsuario);
+        if (listadoCar[0].carrito != '') {
 
-        JSON.parse(listadoCar[0].carrito).forEach(element => {
-            array.push(element);
-
-        });
+            JSON.parse(listadoCar[0].carrito).forEach(element => {
+                array.push(element);
+            });
+        }
+        console.log(array);
+        array.push(productoFiltro);
+        console.log(array);
+        let parametroCar = JSON.stringify(array);
+        let idCliente = req.body.idUsuario;
+        const prodActualizado = await usuarios.actualizarPedido(idCliente, parametroCar);
+        return res.stautus(200).json({ msg: 'Carrito actualizado', prodActualizado });
     }
-
-    console.log(array);
-    array.push(productoFiltro);
-    console.log(array);
-    let parametroCar = JSON.stringify(array);
-    let idCliente = req.body.idUsuario;
-    const prodActualizado = await usuarios.actualizarPedido(idCliente, parametroCar);
-    return res.stautus(200).json({ msg: 'Carrito actualizado', prodActualizado });
-}
 });
 
-
+// Quitar producto de carrit, se busca por nombre de producto
 
 servidor.put('/productos/removeCarrito', middlewere.checkJWT, async (req, res) => {
     //se debe ingresar un imput simulando el "producto" en cuestion
@@ -312,39 +307,40 @@ servidor.put('/productos/removeCarrito', middlewere.checkJWT, async (req, res) =
     debugger;
     const nom = req.body.nombre;
     if (nom === undefined || nom === null
-        ) {
+    ) {
         // do something 
         return res.status(500).json({ msg: '404 - Error en los datos' });
-    } else{
-    //buscar el ID del cliente
-    const listadoCar = await usuarios.consultarCarrito(idUsuario);
-    let array = [];
-    console.log(listadoCar[0].carrito)
+    } else {
+        //buscar el ID del cliente
+        const listadoCar = await usuarios.consultarCarrito(idUsuario);
+        let array = [];
+        console.log(listadoCar[0].carrito)
 
-    JSON.parse(listadoCar[0].carrito).forEach(element => {
-        array.push(element);
+        JSON.parse(listadoCar[0].carrito).forEach(element => {
+            array.push(element);
 
-    });
+        });
 
-    console.log(array);
+        console.log(array);
 
-    const found = array.findIndex(element => element.nombre == nom);
-    console.log(found);
-    array.splice(found, 1);
-    //array.push({ nombre: nom });
-    console.log(array);
-    let parametroCar = JSON.stringify(array);
-    let idCliente = idUsuario;
-    const prodActualizado = await usuarios.actualizarPedido(idCliente, parametroCar);
-    return res.status(200).json({ msg: 'Item removed', prodActualizado });
-}
+        const found = array.findIndex(element => element.nombre == nom);
+        console.log(found);
+        array.splice(found, 1);
+        //array.push({ nombre: nom });
+        console.log(array);
+        let parametroCar = JSON.stringify(array);
+        let idCliente = idUsuario;
+        const prodActualizado = await usuarios.actualizarPedido(idCliente, parametroCar);
+        return res.status(200).json({ msg: 'Item removed', prodActualizado });
+    }
 });
 
 
 
 /// L I S T A D O   C A R R I T O 
 
-//ver listado de carrito
+// Ver listado de carrito, se valida usuario (donde se saca el dato)
+
 servidor.post('/carrito', middlewere.checkJWT, async (req, res) => {
     debugger;
     const codigo = req.headers.authorization;
@@ -376,21 +372,18 @@ servidor.post('/carrito', middlewere.checkJWT, async (req, res) => {
 // })
 
 servidor.get('/time', (req, res) => {
-
     let time = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
-
-
     return res.json({ msg: 'test', time });
-    //msg: TIMESTAMP
 })
 
 
 // P E D I D O S 
 
+// Confirmo el pedido
+
 servidor.post('/carrito/pedido', middlewere.checkJWT, async (req, res) => {
     const codigo = req.headers.authorization;
     const firma = process.env.jwt_Firma;
-
     const userID = middlewere.getID(codigo, firma);
     //const userID = req.body.idUsuario;
     const status = 'Creado';
@@ -409,6 +402,7 @@ servidor.post('/carrito/pedido', middlewere.checkJWT, async (req, res) => {
         listadoPedido.push(element[0].nombre);
         monto += element[0].precio;
     });
+
     // Buscar la direccion
 
     const data = await servicio.consutlaGenerica('usuarios', userID);
@@ -435,7 +429,6 @@ servidor.post('/carrito/pedido', middlewere.checkJWT, async (req, res) => {
         borrarPedido = await usuarios.actualizarPedido(userID, '');
     }
 
-
     //console.log(dato);
     return res.status(200).json({ msg: 'Pedido creado' });
 
@@ -443,13 +436,11 @@ servidor.post('/carrito/pedido', middlewere.checkJWT, async (req, res) => {
 
 //DELETE FROM `admin` WHERE `estado` like 'creado'
 
-
 // ADMINISTRADOR MIRA LISTA DE PEDIDOS COMPLETA 
 
 servidor.get('/pedido', middlewere.checkJWT, middlewere.middleWereAdmin, async (req, res) => {
     //debugger;
     const data = await servicio.consutlaGenerica('administrador');
-
     return res.json({ msg: 'ok', data });
 });
 
@@ -457,6 +448,7 @@ servidor.get('/pedido', middlewere.checkJWT, middlewere.middleWereAdmin, async (
 
 //middlewere.checkJWT, middlewere.middleWereAdmin,
 // administrador debe poder cambiar el estado del pedido
+
 servidor.post('/pedido/estado', middlewere.checkJWT, middlewere.middleWereAdmin, async (req, res) => {
     const codigo = req.headers.authorization;
     const firma = process.env.jwt_Firma;
@@ -468,19 +460,19 @@ servidor.post('/pedido/estado', middlewere.checkJWT, middlewere.middleWereAdmin,
         name === undefined || name === null ||
         firma === undefined || firma === null ||
         id === undefined || id === null ||
-        status === undefined || status === null 
-        ) {
-        // do something 
+        status === undefined || status === null
+    ) {
+        // do something que indique error
         return res.status(500).json({ msg: '404 - Error en los datos' });
-    } else{
-    const data = await servicio.consutlaGenerica('usuarios', id);
-    // Buscar Usuario
-    const user = data[0].usuario;
-    console.log(user);
-    console.log(status);
+    } else {
+        const data = await servicio.consutlaGenerica('usuarios', id);
+        // Buscar Usuario
+        const user = data[0].usuario;
+        console.log(user);
+        console.log(status);
 
-    let estadoActualizado = await admin.modificarEstado(status, user);
-    return res.status(200).json({ msg: 'Pedido Actualizado' });
+        let estadoActualizado = await admin.modificarEstado(status, user);
+        return res.status(200).json({ msg: 'Pedido Actualizado' });
     }
 });
 

@@ -6,6 +6,8 @@ const { Sequelize, DataTypes, Op } = require('sequelize');
 const dotenv = require('dotenv');
 dotenv.config();
 
+// Creamos base de datos
+
 const sequelize = new Sequelize(process.env.db_name, process.env.db_USUARIO, process.env.db_CONTRASE,
     {
         host: process.env.db_host,
@@ -19,9 +21,9 @@ const sequelize = new Sequelize(process.env.db_name, process.env.db_USUARIO, pro
         define: {
             timestamps: false
         }
-
     });
 
+    // Creamos una tabla usuarios
 
 const Pro = sequelize.define('usuarios', {
 
@@ -69,6 +71,8 @@ const Pro = sequelize.define('usuarios', {
 
 });
 
+// Este es un array con todos los atributos de los usuarios para la tabla usuarios
+
 let arrayAttributosUsuarios = [
     'id',
     'nombre_apellido',
@@ -82,6 +86,7 @@ let arrayAttributosUsuarios = [
     'carrito'];
 
 
+// Consultamos los usuarios en funcion a los parametros
 
 async function consutltaUsuarios(criterioFiltro) {
     console.log("hola2");
@@ -110,14 +115,17 @@ async function consutltaUsuarios(criterioFiltro) {
 // where: {
 //     [Op.or]: [{authorId: 12}, {authorId: 13}]
 //   }
-
-
-
-
 // let a =  consutltaUsuarios({usuario: `Anto`});
+
+
+
+// Agregamos usuario con dichos parametros
+
 async function agregarUsuarios(param) {
     const crear = await Pro.create(param);
 }
+
+// Modificamos usuarios segun parametros
 
 async function modificarUsuarios(param) {
     //[{atributo: modificacion}, {condicion: fieldRequired}]
@@ -132,6 +140,8 @@ async function modificarUsuarios(param) {
     return modificar
 }
 
+// consultamos si son Favoritos
+
 async function consultarFav(identification) {
     const listaFav = await Pro.findAll({
         where: { id: identification },
@@ -139,6 +149,8 @@ async function consultarFav(identification) {
     });
     return listaFav
 }
+
+// Agregamos a la lista de favoritos, cliente y parametros
 
 async function agregarFav(idCliente, parametro) {
     //let atributo = param[0];
@@ -156,6 +168,8 @@ async function agregarFav(idCliente, parametro) {
 
 //// C A R R I T O 
 
+// Consutlamos al carrito en funcion del ID de usuario
+
 async function consultarCarrito(identification) {
     const listaFav = await Pro.findAll({
         where: { id: identification },
@@ -164,11 +178,13 @@ async function consultarCarrito(identification) {
     return listaFav
 }
 
+// actualizamos el pedido en funcion del Id del cliente y 
+//parametros del pedido (se actualizan parametros completos)
+
 
 async function actualizarPedido(idCliente, parametro) {
     //let atributo = param[0];
     //let condicion = param[1];
-
     const modificar = await Pro.update(
         { carrito: parametro }
         , {
