@@ -147,7 +147,7 @@ servidor.post('/productosTest', middlewere.checkJWT, async (req, res) => {
 
 // ADMINISTRADOR - AGREGAR PRODUCTO
 //middlewere.middleWereAdmin, middlewere.checkJWT,
-servidor.post('/productos/add',   async (req, res) => {
+servidor.post('/productos/add', middlewere.middleWereAdmin, middlewere.checkJWT, async (req, res) => {
     debugger;
     const criterio = req.body.nombre;
     //const criterio = { nombre: req.body.nombre };
@@ -192,7 +192,7 @@ servidor.post('/productos/add',   async (req, res) => {
 // }
 //, middlewere.checkJWT, middlewere.middleWereAdmin
 
-servidor.delete('/productos/remove', async (req, res) => {
+servidor.delete('/productos/remove', middlewere.checkJWT, middlewere.middleWereAdmin, async (req, res) => {
     debugger;
     const nomb = req.body.nombre;
     if (nomb === undefined || nomb === null
