@@ -66,8 +66,7 @@ async function consutltaProducto(criterioFiltro) {
     } else {
         const datos = await Pro.findAll({
             //where: {nombre: criterioFiltro},
-            where:
-                {nombre: criterioFiltro},
+            where: {nombre: criterioFiltro},
 
             attributes: arrayAttributosProductos
         });
@@ -81,7 +80,7 @@ async function consutltaProducto(criterioFiltro) {
 async function agregarProducto(param) {
     debugger;
     const crear = await Pro.create(param);
-    return { msg: `${crear}, fue creado` }
+    return { msg: 'se creo', crear}
 }
 
 // Eliminar parametros segun parametros

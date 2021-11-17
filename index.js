@@ -146,20 +146,21 @@ servidor.post('/productosTest', middlewere.checkJWT, async (req, res) => {
 //     }
 
 // ADMINISTRADOR - AGREGAR PRODUCTO
-
-servidor.post('/productos/add', middlewere.checkJWT, middlewere.middleWereAdmin, async (req, res) => {
+//middlewere.middleWereAdmin, middlewere.checkJWT,
+servidor.post('/productos/add',   async (req, res) => {
     debugger;
-    const criterio = { nombre: req.body.nombre };
+    const criterio = req.body.nombre;
+    //const criterio = { nombre: req.body.nombre };
     const nom = req.body.nombre;
     const desc = req.body.descripcion;
     const pre = req.body.precio;
     const im = req.body.imagen;
 
     if (criterio === undefined || criterio === null ||
-        nom === undefined || nom === null ||
+        //nom === undefined || nom === null ||
         desc === undefined || desc === null ||
         pre === undefined || pre === null ||
-        dir === undefined || dir === null ||
+        //dir === undefined || dir === null ||
         im === undefined || im === null
     ) {
         // do something que indique error
