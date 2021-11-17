@@ -228,12 +228,12 @@ servidor.put('/productos', middlewere.checkJWT, middlewere.middleWereAdmin, asyn
         return res.status(500).json({ msg: '404 - Error en los datos' });
     } else {
         debugger;
-        let busqueda = await servicio.consutlaGenerica('productos', { nombre: nom });
+        let busqueda = await servicio.consutlaGenerica('productos', nom);
         if (busqueda == "") {
             return res.status(404).json({ msg: 'Producto no existe', busqueda });
         } else {
             const prodActualizado = await servicio.modificacionProductoGenerico('productos', [
-                { nombre: nom },
+                nom,
                 {
                     nombre: nom,
                     descripcion: desc,
@@ -241,7 +241,7 @@ servidor.put('/productos', middlewere.checkJWT, middlewere.middleWereAdmin, asyn
                     imagen: im
                 }
             ]);
-            let busquedaActualizada = await servicio.consutlaGenerica('productos', { nombre: nom });
+            let busquedaActualizada = await servicio.consutlaGenerica('productos', nom);
             //console.log(prodActualizado);
             return res.status(200).json({ msg: 'Producto actualizado', busquedaActualizada });
         }

@@ -97,9 +97,10 @@ async function eliminarProducto(param) {
 
 async function modificarProductos(param) {
     //[{atributo: modificacion}, {condicion: fieldRequired}]
-    let condicion = param[0].nombre;
+    debugger
+    let condicion = param[0];
     let atributo = param[1];
-    console.log(condicion);
+    console.log(atributo);
 
     const modificar = await Pro.update(
         atributo
