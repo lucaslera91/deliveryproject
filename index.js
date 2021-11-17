@@ -206,7 +206,7 @@ servidor.delete('/productos/remove', middlewere.checkJWT, middlewere.middleWereA
         } else {
             debugger;
             let quitar = await servicio.eliminarGenerico('productos', nomb);
-            return res.status(200).json({ msg: 'Producto eliminado: ', quitar });
+            return res.status(200).json({ msg: 'Producto eliminado: ', busqueda });
         }
     }
 });
