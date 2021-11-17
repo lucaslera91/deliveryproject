@@ -14,6 +14,7 @@ servidor.use(cors());
 const middlewere = require('./service/middlewere');
 const jwt = require('jsonwebtoken');
 
+
 // servidor.all('*', (req, res, next) => {
 //     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 //   });
@@ -270,13 +271,15 @@ servidor.put('/productos/addCarrito', middlewere.checkJWT, async (req, res) => {
         // do something 
         return res.status(500).json({ msg: '404 - Error en los datos' });
     } else {
-        const productoFiltro = await servicio.consutlaGenerica('productos', { nombre: nom });
+        const productoFiltro = await servicio.consutlaGenerica('productos', nom );
         console.log(productoFiltro);
         //buscar el ID del cliente
         const codigo = req.headers.authorization;
         const firma = process.env.jwt_Firma;
-
+        console.log('datos codigo', codigo, firma)
         const idUsuario = middlewere.getID(codigo, firma);
+
+        console.log(idUsuario)
 
         const listadoCar = await usuarios.consultarCarrito(idUsuario);
         if (listadoCar[0].carrito != '') {
@@ -285,13 +288,16 @@ servidor.put('/productos/addCarrito', middlewere.checkJWT, async (req, res) => {
                 array.push(element);
             });
         }
-        console.log(array);
+        console.log('array', array);
         array.push(productoFiltro);
-        console.log(array);
+        //console.log();
         let parametroCar = JSON.stringify(array);
-        let idCliente = req.body.idUsuario;
-        const prodActualizado = await usuarios.actualizarPedido(idCliente, parametroCar);
-        return res.stautus(200).json({ msg: 'Carrito actualizado', prodActualizado });
+        console.log(parametroCar)
+        //let idCliente = req.body.idUsuario;
+
+        //const prodActualizado = await usuarios.actualizarPedido(idCliente, parametroCar);
+        const prodActualizado = await usuarios.actualizarPedido(idUsuario, parametroCar);
+        return res.status(200).json({ msg: 'Carrito actualizado' , nom});
     }
 });
 
@@ -440,6 +446,7 @@ servidor.post('/carrito/pedido', middlewere.checkJWT, async (req, res) => {
 
 servidor.get('/pedido', middlewere.checkJWT, middlewere.middleWereAdmin, async (req, res) => {
     //debugger;
+    
     const data = await servicio.consutlaGenerica('administrador');
     return res.json({ msg: 'ok', data });
 });

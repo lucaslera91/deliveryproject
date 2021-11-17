@@ -16,10 +16,15 @@ function generarJWT(param) {
     return token;
 }
 
-// Revision de MiddleWere para Admin    
+// Revision de MiddleWere para Admin
 
 function middleWereAdmin(req, res, next) {
-    const permitions = req.body.permitions;
+    //
+    const codigo = req.headers.authorization;
+    const firma = process.env.jwt_Firma;
+    const userRol = getRol(codigo, firma);
+    //
+    const permitions = req.body.permitions  || userRol;
     if (adminCheck(permitions) == true) {
         next();
     } else {
@@ -63,15 +68,29 @@ const checkJWT = (req, res, next) => {
 function getID(codigo, firma) {
     const tok = codigo.slice(7, codigo.length)
     const getIDdeToken = jwt.verify(tok, firma);
-    const userID = getIDdeToken.usuarioID;
+
+    const userID = getIDdeToken.id;
     console.log(getIDdeToken);
     //console.log(req.user);
     return userID;
 }
+// Get ID para el payload
+
+function getRol(codigo, firma) {
+    const tok = codigo.slice(7, codigo.length)
+    const getIDdeToken = jwt.verify(tok, firma);
+
+    const userRol = getIDdeToken.rol;
+    console.log(userRol);
+    //console.log(req.user);
+    return userRol;
+}
+
 
 module.exports = {
     checkJWT,
     middleWereAdmin,
     getID,
-    generarJWT
+    generarJWT,
+    getRol
 }
