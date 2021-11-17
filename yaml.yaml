@@ -10,6 +10,8 @@ info:
 
 paths:
   /registrarse:
+  tags:
+      - "user"
     post:
       summary: "Register a new user"
       description: "You may register a new user"
@@ -43,6 +45,8 @@ paths:
           required: true
           
   /login:
+    tags:
+      - "user"
     post:
       summary: "Please log in"
       description: "You will be logging in"
@@ -61,6 +65,8 @@ paths:
       
           
   /productos:
+    tags:
+      - "producto"
     get:
       summary: "Get all products available"
       description: "Get all products available"
@@ -79,10 +85,12 @@ paths:
       security:
       - auth:
         - "write:jwt"
-        - "read:pets"
+        - "read:jwt"
         
   /productos/add:
-     post:
+    tags:
+      - "producto"
+    post:
       summary: "Add a product to list"
       description: "Add a product to the list"
       responses:
@@ -105,5 +113,36 @@ paths:
           in: "formData"
           description: "URL de la imagen"
           required: true
-          
-          
+
+  /productos/remove:
+    tags:
+      - "producto"
+    delete:
+      summary: "Remove item from product list"
+      description: "Select item and remove it"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "Product name"
+        in: "query"
+        description: "Product name exactly"
+        required: true
+        type: "string"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "string"
+            items:
+              $ref: "#/productos/remove"
+        "400":
+          description: "Invalid tag value"
+      security:
+      - petstore_auth:
+        - "write:jwt"
+        - "read:jwt"
+      deprecated: true
