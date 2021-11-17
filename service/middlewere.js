@@ -16,7 +16,7 @@ function generarJWT(param) {
     return token;
 }
 
-// Revision de MiddleWere para Admin
+// Revision de MiddleWere para Admin    
 
 function middleWereAdmin(req, res, next) {
     const permitions = req.body.permitions;

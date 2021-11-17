@@ -67,7 +67,7 @@ async function consutltaProducto(criterioFiltro) {
         const datos = await Pro.findAll({
             //where: {nombre: criterioFiltro},
             where:
-                criterioFiltro,
+                {nombre: criterioFiltro},
 
             attributes: arrayAttributosProductos
         });

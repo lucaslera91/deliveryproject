@@ -1,0 +1,109 @@
+openapi: "3.0.0"
+info:
+  description: "This is an API that allows you to buy food from restoBar Delilah"
+  version: "1.0.0"
+  title: "Swagger RestoBar Delilah"
+  http://localhost:3000
+  url: "http://localhost:3000"
+  # url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+
+
+paths:
+  /registrarse:
+    post:
+      summary: "Register a new user"
+      description: "You may register a new user"
+      responses:
+        "200":
+          description: "User registered correctly"
+      parameters:
+        - name: "Name"
+          in: "formData"
+          description: "Please input Name"
+          required: true
+        - name: "E-mail"
+          in: "formData"
+          description: "Please input e-mail"
+          required: true
+        - name: "Telephone number"
+          in: "formData"
+          description: "Please input a phone number"
+          required: true
+        - name: "Address"
+          in: "formData"
+          description: "Please input an address"
+          required: true
+        - name: "User Name"
+          in: "formData"
+          description: "Please input a user name"
+          required: true
+        - name: "Password"
+          in: "formData"
+          description: "Please input password"
+          required: true
+          
+  /login:
+    post:
+      summary: "Please log in"
+      description: "You will be logging in"
+      responses:
+        "200":
+          description: "Log in correct"
+      parameters:
+        - name: "User Name"
+          in: "formData"
+          description: "Please input user Name"
+          required: true
+        - name: "Password"
+          in: "formData"
+          description: "Please input password"
+          required: true
+      
+          
+  /productos:
+    get:
+      summary: "Get all products available"
+      description: "Get all products available"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        "200":
+          description: "Request ok"
+        "400":
+          description: "Error"
+        "404":
+          description: "Product not found"
+        "405":
+          description: "Validation exception"
+      security:
+      - auth:
+        - "write:jwt"
+        - "read:pets"
+        
+  /productos/add:
+     post:
+      summary: "Add a product to list"
+      description: "Add a product to the list"
+      responses:
+        "200":
+          description: "Product creado exitosamente"
+      parameters:
+        - name: "Name"
+          in: "formData"
+          description: "Nombre del producto"
+          required: true
+        - name: "Descripcion"
+          in: "formData"
+          description: "Descripcion del producto"
+          required: true
+        - name: "Precio"
+          in: "formData"
+          description: "Precio del producto"
+          required: true
+        - name: "Imagen"
+          in: "formData"
+          description: "URL de la imagen"
+          required: true
+          
+          

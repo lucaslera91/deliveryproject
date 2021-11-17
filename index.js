@@ -111,7 +111,7 @@ servidor.post('/login', async (req, res) => {
                 const info = { id: data[0].id, rol: data[0].rol };
                 //console.log(info);
                 const token = jwt.sign(info, firma);
-                return res.json({ msg: 'log in ok', info: info, token: token })
+                return res.json({ msg: 'Log in correct', info: info, token: token })
             } else {
                 return res.json({ msg: `${psswd}, contrase incorrecta` })
             }
@@ -129,8 +129,7 @@ servidor.get('/productos', middlewere.checkJWT, async (req, res) => {
 })
 
 servidor.post('/productosTest', middlewere.checkJWT, async (req, res) => {
-    debugger;
-
+    //debugger;
     console.log(req.body);
     const datTest = await servicio.consutlaGenerica('productos', { nombre: req.body.nombre });
     res.json({ datTest });
@@ -175,7 +174,7 @@ servidor.post('/productos/add', middlewere.checkJWT, middlewere.middleWereAdmin,
                 precio: pre,
                 imagen: im,
             })
-            return res.status(200).json({ msg: 'fue creado con exito', dato });
+            return res.status(200).json({ msg: ' creado con exito', dato });
         } else {
             return res.status(404).json({ msg: 'Producto ya existe', busqueda });
         }
@@ -190,11 +189,11 @@ servidor.post('/productos/add', middlewere.checkJWT, middlewere.middleWereAdmin,
 // "imagen": "https://s1.eestatic.com/2015/05/04/cocinillas/Cocinillas_30756925_116172600_1024x735.jpg",
 // "admin": "true"
 // }
+//, middlewere.checkJWT, middlewere.middleWereAdmin
 
-
-servidor.delete('/productos/remove/{nombre}', middlewere.checkJWT, middlewere.middleWereAdmin, async (req, res) => {
-    //debugger;
-    const nomb = req.params.nombre;
+servidor.delete('/productos/remove', async (req, res) => {
+    debugger;
+    const nomb = req.body.nombre;
     if (nomb === undefined || nomb === null
     ) {
         // do something que indique error
