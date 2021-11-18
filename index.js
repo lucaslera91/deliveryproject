@@ -29,7 +29,7 @@ try {
 }
 
 // registrar usuario
-servidor.get('/hola', (req, res) => {
+servidor.get('/hola', middlewere.checkJWT, (req, res) => {
     return res.json({ msg: 'Correct' });
 })
 
@@ -85,6 +85,8 @@ servidor.post('/registrarse', middlewere.checkJWT, async (req, res) => {
 //se debe sumar la info de JWT - se manda en Headers
 
 // 
+
+
 servidor.post('/login', async (req, res) => {
 
     const us = req.body.usuario;
@@ -121,12 +123,24 @@ servidor.post('/login', async (req, res) => {
 
 });
 
-// Get de los productos
+try {
+    // nonExistentFunction();
+} catch (error) {
+    console.error(error);
+    // expected output: ReferenceError: nonExistentFunction is not defined
+    // Note - error messages will vary depending on browser
+}
 
+
+// Get de los productos
+//middlewere.checkJWT,
 servidor.get('/productos', middlewere.checkJWT, async (req, res) => {
-    debugger;
+    try{
     const dat = await servicio.consutlaGenerica('productos', "");
     res.status(200).json({ dat });
+    } catch(error){
+        return 'Error 400 in user/payload'
+    }
 })
 
 servidor.post('/productosTest', middlewere.checkJWT, async (req, res) => {
@@ -135,6 +149,7 @@ servidor.post('/productosTest', middlewere.checkJWT, async (req, res) => {
     const datTest = await servicio.consutlaGenerica('productos', { nombre: req.body.nombre });
     res.json({ datTest });
 })
+
 
 //{nombre: criterioFiltro}
 
@@ -482,6 +497,7 @@ servidor.post('/pedido/estado', middlewere.checkJWT, middlewere.middleWereAdmin,
         return res.status(200).json({ msg: 'Pedido Actualizado' });
     }
 });
+
 
 
 servidor.listen(PORT, () => { console.log(PORT) })
