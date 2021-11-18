@@ -35,7 +35,10 @@ servidor.get('/hola', middlewere.checkJWT, (req, res) => {
 
 
 //middlewere.checkJWT,
-servidor.post('/registrarse', middlewere.checkJWT, async (req, res) => {
+//middlewere.checkJWT,
+
+// no middlewere.. makes no sense.
+servidor.post('/registrarse',  async (req, res) => {
     console.log("hola");
 
     const user = req.body.user;
@@ -67,9 +70,12 @@ servidor.post('/registrarse', middlewere.checkJWT, async (req, res) => {
                 correo: email,
                 contrasena: password,
                 direccion: dir,
-                telefono: tel
+                telefono: tel,
+                carrito: "",
+                favoritos: "",
+                rol: ""
             })
-            return res.status(200).json({ msg: 'Register correct', user });
+            return res.status(200).json({ msg: 'Register correct', dato });
         } else {
             res.status
             return res.status(404).json({ msg: '404 - Register ya existe', busqueda });

@@ -17,6 +17,18 @@ let registerDireccion = document.querySelector('#direccionRegister')
 let registerTelefono = document.querySelector('#telefonoRegister')
 
 //
+// registerUser.value = 'fer'
+// registerPassword.value = 123452345
+// registerNombre.value = 'Fer'
+// registerCorreo.value = 'fer@gmail.com'
+// registerDireccion.value = 'dire fer 4563'
+// registerTelefono.value = 975245761
+
+///
+
+
+
+///
 
 middleJWTtest.addEventListener('click', async (e) => {
     e.preventDefault()
@@ -89,21 +101,15 @@ submitLogin.addEventListener('click', async (e) => {
 registerButton.addEventListener('click', async (e) => {
     e.preventDefault()
     let registerInfo = {
-        // const user = req.body.user;
         user: registerUser.value,
-// const name = req.body.nombre;
         nombre: registerNombre.value,
-// const email = req.body.correo;
-        tel: registerCorreo.value,
-// const tel = req.body.tel;
-        dir: registerTelefono.value,
-// const dir = req.body.dir;
-        contrasena: registerDireccion,
-// const password = req.body.contrasena;
-        password: registerPassword.value
+        tel: registerTelefono.value,
+        dir: registerDireccion.value,
+        contrasena: registerPassword.value,
+        correo: registerCorreo.value
     }
     //alert('works')
-    fetch(`http://localhost:3000/register`, {
+    fetch(`http://localhost:3000/registrarse`, {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -113,14 +119,14 @@ registerButton.addEventListener('click', async (e) => {
         },
         body: JSON.stringify(registerInfo)
     }).then(function (rawResponse) {
-        //alert('ehy2')
+        alert('ehy2')
         console.log(rawResponse)
         const data = rawResponse.json();
         console.log(data)
         return data
     }).then(function (data) {
         
-        alert(data)
+        console.log(data)
 
 
     });
