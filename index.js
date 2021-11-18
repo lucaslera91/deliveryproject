@@ -103,7 +103,7 @@ servidor.post('/login', async (req, res) => {
         //encontrar info de este "usuario"
         //{ usuario: 'AntoNuevo' }
         const data = await servicio.consutlaGenerica('usuarios', us);
-        console.log(data);
+        //console.log(data);
         if (data == "") {
             //agregar(name, user, email, password, dir, tel);
             return res.json({ msg: `Usuario ${us}, no existe` })

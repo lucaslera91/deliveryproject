@@ -89,7 +89,7 @@ let arrayAttributosUsuarios = [
 // Consultamos los usuarios en funcion a los parametros
 
 async function consutltaUsuarios(criterioFiltro) {
-    console.log("hola2");
+    //console.log("hola2");
     //console.log('hola');
     
         if (criterioFiltro == "") {
