@@ -4,57 +4,19 @@ let submitLogin = document.querySelector('#submitLogin')
 let formSpace = document.querySelector('#loginForm')
 let testeo = document.querySelector('#testeo')
 let middleJWTtest = document.querySelector('#jwtTesting')
+let registerButton = document.querySelector('#registerSubmit')
+let registerPage = document.querySelector('#register')
 
-//user.value = 'lucas'
-//contrasena.value = '123456'
-//console.log(user, 'this is empty?')
-//let a = user.value
-//let b = contrasena.value
-//alert(lookUp.usuario + lookUp.contrasena)
-//alert(b)
+// botones de registro
 
-// submitLogin.addEventListener('click', (e) => {
-//     e.preventDefault()
+let registerUser = document.querySelector('#userRegister')
+let registerPassword = document.querySelector('#passwordRegister')
+let registerNombre = document.querySelector('#nombreRegister')
+let registerCorreo = document.querySelector('#correoRegister')
+let registerDireccion = document.querySelector('#direccionRegister')
+let registerTelefono = document.querySelector('#telefonoRegister')
 
-//     // alert('worked prev')
-//     fetch(`http://localhost:3000/productos`)
-//         .then(function (response) {
-//             //formSpace.innerHTML = `${response}`
-
-//             let data = response.json();
-
-//             return data
-//             //alert('worked inside')
-//         }).then(function (data) {
-//             //formSpace.innerHTML = `So far, so good`
-//             //formSpace.innerHTML += `${data.dat[0].nombre} <br>`
-
-//             data.dat.forEach(element => {
-//                 formSpace.innerHTML += `${element.nombre} <br>`
-//             });
-//             //testeo.innerHTML = `${Object.keys(data.dat[0])}`
-//         })
-//     // alert('succes :)')
-// });
-
-// middleJWTtest.addEventListener('click', async (e) => {
-//     e.preventDefault()
-//     // alert('ehy1')
-//     const rawResponse = await fetch(`http://localhost:3000/hola`,{
-//         method: "GET",
-//         headers: {
-//             Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3MTc1NTIxfQ.zs23gE2zCmPxGBuzqa1PSwfd7zd4_0wFl3XpJ-trWFQ",
-//             //Content-Type: "application/json",
-//         }
-
-//     });
-//     //alert('ehy2')
-//     const data = await rawResponse.json();
-
-//     alert(Object.keys(data.msg[2]));
-//     testeo.innerHTML = `${data.msg}`
-//     console.log(data)
-// });
+//
 
 middleJWTtest.addEventListener('click', async (e) => {
     e.preventDefault()
@@ -85,7 +47,9 @@ middleJWTtest.addEventListener('click', async (e) => {
         // testeo.innerHTML = `${data} <br>`
     })
 });
-//let loginSearch = 
+
+
+// Evento para el log in. Guarda token en local storage.
 
 submitLogin.addEventListener('click', async (e) => {
     let lookUp = { usuario: user.value, contrasena: contrasena.value }
@@ -120,5 +84,57 @@ submitLogin.addEventListener('click', async (e) => {
     // testeo.innerHTML = `${data} <br>`
 });
 
-alert('what')
+// Evento para registrarse
+
+registerButton.addEventListener('click', async (e) => {
+    e.preventDefault()
+    let registerInfo = {
+        // const user = req.body.user;
+        user: registerUser.value,
+// const name = req.body.nombre;
+        nombre: registerNombre.value,
+// const email = req.body.correo;
+        tel: registerCorreo.value,
+// const tel = req.body.tel;
+        dir: registerTelefono.value,
+// const dir = req.body.dir;
+        contrasena: registerDireccion,
+// const password = req.body.contrasena;
+        password: registerPassword.value
+    }
+    //alert('works')
+    fetch(`http://localhost:3000/register`, {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            //Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3MTc1NTIxfQ.zs23gE2zCmPxGBuzqa1PSwfd7zd4_0wFl3XpJ-trWFQ",
+            //Content-Type: "application/json",
+        },
+        body: JSON.stringify(registerInfo)
+    }).then(function (rawResponse) {
+        //alert('ehy2')
+        console.log(rawResponse)
+        const data = rawResponse.json();
+        console.log(data)
+        return data
+    }).then(function (data) {
+        
+        alert(data)
+
+
+    });
+
+});
+
+
+
+
+
+// const user = req.body.user;
+// const name = req.body.nombre;
+// const email = req.body.correo;
+// const tel = req.body.tel;
+// const dir = req.body.dir;
+// const password = req.body.contrasena;
 

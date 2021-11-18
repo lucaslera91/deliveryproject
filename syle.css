@@ -2,3 +2,7 @@ img{
     height: 50px;
     width: auto;
 }
+a{
+    text-decoration: none;
+    color: black;
+}
