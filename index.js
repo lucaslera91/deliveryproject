@@ -92,11 +92,12 @@ servidor.post('/login', async (req, res) => {
     const us = req.body.usuario;
     const psswd = req.body.contrasena;
 
+
     if (us === undefined || us === null ||
         psswd === undefined || psswd === null
     ) {
         // do something when error
-        return res.status(500).json({ msg: '404 - Error en los datos' });
+        return res.status(500).json({ msg: `'404 - Error en los datos'` });
     } else {
 
         //encontrar info de este "usuario"
@@ -170,7 +171,7 @@ servidor.post('/productos/add', middlewere.middleWereAdmin, middlewere.checkJWT,
     const nom = req.body.nombre;
     const desc = req.body.descripcion;
     const pre = req.body.precio;
-    const im = req.body.imagen;
+    const im = req.body.imagen;  
 
     if (criterio === undefined || criterio === null ||
         //nom === undefined || nom === null ||
