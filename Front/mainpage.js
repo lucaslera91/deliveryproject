@@ -119,18 +119,18 @@ registerButton.addEventListener('click', async (e) => {
         },
         body: JSON.stringify(registerInfo)
     }).then(function (rawResponse) {
-        alert('ehy2')
+        //alert('ehy2')
         console.log(rawResponse)
         const data = rawResponse.json();
         console.log(data)
         return data
     }).then(function (data) {
-        
-        console.log(data)
-
-
+       // alert(data.msg)
+        if(data.msg === 'Register correct'){
+            alert('wordks')
+            window.location.href="../index.html"
+        }
     });
-
 });
 
 
