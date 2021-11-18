@@ -5,12 +5,11 @@ let formSpace = document.querySelector('#loginForm')
 let testeo = document.querySelector('#testeo')
 let middleJWTtest = document.querySelector('#jwtTesting')
 
-user.value = 'lucas'
-contrasena.value = '123456'
-console.log(user, 'this is empty?')
-let a = user.value
-let b = contrasena.value
-let lookUp = {usuario:a, contrasena:b}
+//user.value = 'lucas'
+//contrasena.value = '123456'
+//console.log(user, 'this is empty?')
+//let a = user.value
+//let b = contrasena.value
 //alert(lookUp.usuario + lookUp.contrasena)
 //alert(b)
 
@@ -75,8 +74,8 @@ middleJWTtest.addEventListener('click', async (e) => {
     }).then(function (data) {
         //alert(Object.keys(data.msg[2]));
         data.dat.forEach(element => {
-            testeo.innerHTML += 
-            `
+            testeo.innerHTML +=
+                `
             <h3>${element.nombre}</h3>
             <img src="${element.imagen}" alt=""> <br>
             `
@@ -89,6 +88,8 @@ middleJWTtest.addEventListener('click', async (e) => {
 //let loginSearch = 
 
 submitLogin.addEventListener('click', async (e) => {
+    let lookUp = { usuario: user.value, contrasena: contrasena.value }
+
     e.preventDefault()
     fetch(`http://localhost:3000/login`, {
         method: "POST",
@@ -107,9 +108,16 @@ submitLogin.addEventListener('click', async (e) => {
         return data
     }).then(function (data) {
         //alert(Object.keys(data.msg[2]));
-        testeo.innerHTML = `${data.token} <br>`
-        });
-        // testeo.innerHTML = `${data} <br>`
+
+
+        localStorage.setItem('token', (data.token || data.msg))
+        if (data.token){
+            testeo.innerHTML = `Log in exitoso, to token JWT es: ${localStorage.getItem('token')} <br>`
+        }else{
+            testeo.innerHTML = `${localStorage.getItem('token')} <br>`
+        }
+    });
+    // testeo.innerHTML = `${data} <br>`
 });
 
 
