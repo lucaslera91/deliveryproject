@@ -29,6 +29,7 @@ let registerTelefono = document.querySelector('#telefonoRegister')
 
 
 ///
+// Get productos prueba.
 
 middleJWTtest.addEventListener('click', async (e) => {
     e.preventDefault()
@@ -60,7 +61,6 @@ middleJWTtest.addEventListener('click', async (e) => {
     })
 });
 
-
 // Evento para el log in. Guarda token en local storage.
 
 submitLogin.addEventListener('click', async (e) => {
@@ -88,15 +88,14 @@ submitLogin.addEventListener('click', async (e) => {
 
         localStorage.setItem('token', (data.token || data.msg))
         if (data.token){
-            testeo.innerHTML = `Log in exitoso, to token JWT es: ${localStorage.getItem('token')} <br>`
+            window.location.href="../homePage.html"
         }else{
             testeo.innerHTML = `${localStorage.getItem('token')} <br>`
         }
     });
-    // testeo.innerHTML = `${data} <br>`
 });
 
-// Evento para registrarse
+// Evento para registrarse. 
 
 registerButton.addEventListener('click', async (e) => {
     e.preventDefault()
@@ -133,14 +132,5 @@ registerButton.addEventListener('click', async (e) => {
     });
 });
 
-
-
-
-
-// const user = req.body.user;
-// const name = req.body.nombre;
-// const email = req.body.correo;
-// const tel = req.body.tel;
-// const dir = req.body.dir;
-// const password = req.body.contrasena;
+// 
 
