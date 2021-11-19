@@ -1,17 +1,10 @@
-window.onload = productShow
 let imagenProducto = document.querySelector('.imagentProducto')
 let tituloProducto = document.querySelector('.titulo')
 let pantallaProducto = document.querySelector('#productScreen')
 let addToCartButton = 'realy'
+window.onload = productShow
 
-
-//alert(pantallaProducto.innerHTML)
-
-
-async function productShow(e) {
-    e.preventDefault()
-    //alert('yay')
-    // alert('ehy1')
+async function productShow() {
     fetch(`http://localhost:3000/productos`, {
         method: "GET",
         headers: {
@@ -41,31 +34,26 @@ async function productShow(e) {
                 </div>`
                 
         })
-    }).then(function(){
+    }).then(function() {
             
             // addToCartButton = document.getElementsByClassName('addToCartButton')
             // addToCartButton.forEach(element => {
             //     element.addEventListener('click', alert)
             // });
             //addToCartButton.addEventListener('click', alert)
+    }).catch(error => {
+        console.error(error)
+        location.reload();
+        console.log('Error en vincular a los servidores - cargando productos..')
+
     });
-        // testeo.innerHTML = `${data} <br>`
 };
 
+
 //addToCartButton.addEvent
-
-function alerta(id){
-    alert(id)
-    
-}
-
+//addToCart()
 async function addToCart(id) {
-
-    //e.preventDefault()
     let idProducto = {nombre: id}
-    alert(idProducto.nombre)
-    //let  = { usuario: user.value, contrasena: contrasena.value }
-   
     fetch(`http://localhost:3000/productos/addCarrito`, {
         method: "PUT",
         headers: {
@@ -79,7 +67,6 @@ async function addToCart(id) {
         alert('ehy2')
         const data = rawResponse.json();
         //alert(data)
-        
         return data
     }).then(function (data) {
         //alert(Object.keys(data.msg[2]));
@@ -92,4 +79,6 @@ async function addToCart(id) {
     })
 };
 
-//addToCart()
+
+
+
