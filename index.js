@@ -288,11 +288,9 @@ servidor.put('/productos/addCarrito', middlewere.checkJWT, async (req, res) => {
     const nom = req.body.nombre;
     //const price = req.body.precio;
     let array = [];
-    if (nom === undefined || nom === null
-
-    ) {
+    if (nom === undefined || nom === null) {
         // do something 
-        return res.status(500).json({ msg: '404 - Error en los datos' });
+        return res.status(500).json({ msg: `404 - Error en los datos ${req.body.nombre}` });
     } else {
         const productoFiltro = await servicio.consutlaGenerica('productos', nom );
         console.log(productoFiltro);
