@@ -31,35 +31,7 @@ let registerTelefono = document.querySelector('#telefonoRegister')
 ///
 // Get productos prueba.
 
-middleJWTtest.addEventListener('click', async (e) => {
-    e.preventDefault()
-    // alert('ehy1')
-    fetch(`http://localhost:3000/productos`, {
-        method: "GET",
-        headers: {
-            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3MTc1NTIxfQ.zs23gE2zCmPxGBuzqa1PSwfd7zd4_0wFl3XpJ-trWFQ",
-            //Content-Type: "application/json",
-        }
-    }).then(function (rawResponse) {
-        //alert('ehy2')
-        console.log(rawResponse)
-        const data = rawResponse.json();
-        console.log(data)
-        return data
-    }).then(function (data) {
-        //alert(Object.keys(data.msg[2]));
-        data.dat.forEach(element => {
-            testeo.innerHTML +=
-                `
-            <h3>${element.nombre}</h3>
-            <img src="${element.imagen}" alt=""> <br>
-            `
 
-
-        });
-        // testeo.innerHTML = `${data} <br>`
-    })
-});
 
 // Evento para el log in. Guarda token en local storage.
 
@@ -94,7 +66,7 @@ submitLogin.addEventListener('click', async (e) => {
         }
     });
 });
-
+//chang
 // Evento para registrarse. 
 
 registerButton.addEventListener('click', async (e) => {
@@ -132,5 +104,35 @@ registerButton.addEventListener('click', async (e) => {
     });
 });
 
-// 
+// get page with products
+
+middleJWTtest.addEventListener('click', async (e) => {
+    e.preventDefault()
+    // alert('ehy1')
+    fetch(`http://localhost:3000/productos`, {
+        method: "GET",
+        headers: {
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3MTc1NTIxfQ.zs23gE2zCmPxGBuzqa1PSwfd7zd4_0wFl3XpJ-trWFQ",
+            //Content-Type: "application/json",
+        }
+    }).then(function (rawResponse) {
+        //alert('ehy2')
+        console.log(rawResponse)
+        const data = rawResponse.json();
+        console.log(data)
+        return data
+    }).then(function (data) {
+        //alert(Object.keys(data.msg[2]));
+        data.dat.forEach(element => {
+            testeo.innerHTML +=
+                `
+            <h3>${element.nombre}</h3>
+            <img src="${element.imagen}" alt=""> <br>
+            `
+
+
+        });
+        // testeo.innerHTML = `${data} <br>`
+    })
+});
 
