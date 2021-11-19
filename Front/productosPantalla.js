@@ -37,24 +37,32 @@ async function productShow(e) {
                     </div>
                 </div>
                 <div>
-                    <button class='addToCartButton' id="${element.nombre}">Add to cart</button>
+                    <button class="addToCartButton" onclick="addToCart(this.id)" id="${element.nombre}">Add to cart</button>
                 </div>`
                 
         })
     }).then(function(){
             
-            addToCartButton = document.querySelector('.addToCartButton')
-            addToCartButton.addEventListener('click', addToCart)
+            // addToCartButton = document.getElementsByClassName('addToCartButton')
+            // addToCartButton.forEach(element => {
+            //     element.addEventListener('click', alert)
+            // });
+            //addToCartButton.addEventListener('click', alert)
     });
         // testeo.innerHTML = `${data} <br>`
 };
 
 //addToCartButton.addEvent
 
-async function addToCart(e) {
+function alerta(id){
+    alert(id)
+    
+}
 
-    e.preventDefault()
-    let idProducto = {nombre: addToCartButton.id}
+async function addToCart(id) {
+
+    //e.preventDefault()
+    let idProducto = {nombre: id}
     alert(idProducto.nombre)
     //let  = { usuario: user.value, contrasena: contrasena.value }
    
@@ -68,7 +76,7 @@ async function addToCart(e) {
         },
         body: JSON.stringify(idProducto)
     }).then(function (rawResponse) {
-        //alert('ehy2')
+        alert('ehy2')
         const data = rawResponse.json();
         //alert(data)
         
@@ -76,11 +84,12 @@ async function addToCart(e) {
     }).then(function (data) {
         //alert(Object.keys(data.msg[2]));
         //localStorage.setItem('token', (data.token || data.msg))
-        alert(data)
+        alert(data.msg)
+        alert(data.nom)
     }).catch(error => {
             console.error(error)
             alert('Sin conexion a servidores')
-        })
+    })
 };
 
 //addToCart()
