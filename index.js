@@ -123,7 +123,8 @@ servidor.post('/login', async (req, res) => {
                 const token = jwt.sign(info, firma);
                 return res.json({ msg: 'Log in correct', info: info, token: token })
             } else {
-                return res.json({ msg: `${psswd}, contrase incorrecta` })
+                //return res.json({ msg: `${psswd}, contrase incorrecta` })
+                return res.json({ msg: `Usuario o contraseña incorrecta` })
             }
         }
     }

@@ -1,6 +1,6 @@
 /* Icon 1 */
 *{
-    background-color: darkolivegreen;
+    background-color: #281e5d;
     color: #f3e5f5;
 }
 input{
@@ -9,6 +9,17 @@ input{
     left: 45%;
     width: 30%;
     color: black;
+}
+label{
+    
+}
+#productScreen{
+    width: 50%;
+
+}
+.imagentProducto img{
+    height: 100px;
+    width: auto;
 }
 ul{
     display: flex;
@@ -23,10 +34,16 @@ button{
     padding: 4px;
     padding-right: 80px;
     border-radius: 8px;
-    
+    white-space: nowrap;
     color: black;
     background-color: #f3e5f5;
  
+}
+section{
+    border-top: 50px;
+    border-color: #f3e5f5;
+    height: 40px;
+    /* background-color: red; */
 }
 
 li{
@@ -42,7 +59,9 @@ a{
     text-decoration: none;
     color: black;
     background-color: #f3e5f5;
-    
+    height: fit-content;
+    width: fit-content;
+    white-space: nowrap;
 }
 
 .animated-icon1, .animated-icon2, .animated-icon3 {
