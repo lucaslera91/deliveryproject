@@ -41,7 +41,10 @@ button{
     background-color: #f3e5f5;
  
 }
-
+.col{
+display: flex;
+flex-wrap: nowrap;    
+}
 section{
     border-top: 50px;
     border-color: #f3e5f5;
