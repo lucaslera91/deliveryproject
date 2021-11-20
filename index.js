@@ -38,7 +38,7 @@ servidor.get('/hola', middlewere.checkJWT, (req, res) => {
 //middlewere.checkJWT,
 
 // no middlewere.. makes no sense.
-servidor.post('/registrarse',  async (req, res) => {
+servidor.post('/registrarse', async (req, res) => {
     console.log("hola");
 
     const user = req.body.user;
@@ -143,10 +143,10 @@ try {
 // Get de los productos
 //middlewere.checkJWT,
 servidor.get('/productos', middlewere.checkJWT, async (req, res) => {
-    try{
-    const dat = await servicio.consutlaGenerica('productos', "");
-    res.status(200).json({ dat });
-    } catch(error){
+    try {
+        const dat = await servicio.consutlaGenerica('productos', "");
+        res.status(200).json({ dat });
+    } catch (error) {
         return 'Error 400 in user/payload'
     }
 })
@@ -178,7 +178,7 @@ servidor.post('/productos/add', middlewere.middleWereAdmin, middlewere.checkJWT,
     const nom = req.body.nombre;
     const desc = req.body.descripcion;
     const pre = req.body.precio;
-    const im = req.body.imagen;  
+    const im = req.body.imagen;
 
     if (criterio === undefined || criterio === null ||
         //nom === undefined || nom === null ||
@@ -292,7 +292,7 @@ servidor.put('/productos/addCarrito', middlewere.checkJWT, async (req, res) => {
         // do something 
         return res.status(500).json({ msg: `404 - Error en los datos ${req.body.nombre}` });
     } else {
-        const productoFiltro = await servicio.consutlaGenerica('productos', nom );
+        const productoFiltro = await servicio.consutlaGenerica('productos', nom);
         console.log(productoFiltro);
         //buscar el ID del cliente
         const codigo = req.headers.authorization;
@@ -318,7 +318,7 @@ servidor.put('/productos/addCarrito', middlewere.checkJWT, async (req, res) => {
 
         //const prodActualizado = await usuarios.actualizarPedido(idCliente, parametroCar);
         const prodActualizado = await usuarios.actualizarPedido(idUsuario, parametroCar);
-        return res.status(200).json({ msg: 'Carrito actualizado' , nom});
+        return res.status(200).json({ msg: 'Carrito actualizado', nom });
     }
 });
 
@@ -370,28 +370,35 @@ servidor.put('/productos/removeCarrito', middlewere.checkJWT, async (req, res) =
 
 servidor.post('/carrito', middlewere.checkJWT, async (req, res) => {
     debugger;
-    const codigo = req.headers.authorization;
-    const firma = process.env.jwt_Firma;
+    try {
+        const codigo = req.headers.authorization;
+        const firma = process.env.jwt_Firma;
 
-    const idUsuario = middlewere.getID(codigo, firma);
+        const idUsuario = middlewere.getID(codigo, firma);
 
-    //const formaDePago = req.body.pago;
-    const formaDePago = 'Efectivo';
-    //Hacer algo con la respuesta que indique ademas si es admin el id
-    //suponemos idCliente = lo ingresamos manualmente
-    //console.log(req.body.id);
-    const dat2 = await usuarios.consultarCarrito(idUsuario);
-    let busquedaDir = await servicio.consutlaGenerica('usuarios', idUsuario);
-    console.log(busquedaDir[0].dataValues.direccion);
-    console.log(dat2[0].carrito);
+        //const formaDePago = req.body.pago;
+        const formaDePago = 'Efectivo';
+        //Hacer algo con la respuesta que indique ademas si es admin el id
+        //suponemos idCliente = lo ingresamos manualmente
+        //console.log(req.body.id);
+        const dat2 = await usuarios.consultarCarrito(idUsuario);
+        let busquedaDir = await servicio.consutlaGenerica('usuarios', idUsuario);
+        console.log(busquedaDir[0].dataValues.direccion);
+        console.log(dat2[0].carrito);
 
-    if (dat2 == "") {
-        res.status(200).json({ msg: 'Agrega tu primer item!', dat2 });
-    } else {
-        let carrito = JSON.parse(dat2[0].carrito);
-        let dire = busquedaDir[0].dataValues.direccion;
-        //devolver lo que necesitas
-        res.status(200).json({ carrito, dire, pago: formaDePago });
+        if (dat2 == "") {
+            res.status(200).json({ msg: 'Agrega tu primer item!', dat2 });
+        } else {
+            let carrito = JSON.parse(dat2[0].carrito);
+            let dire = busquedaDir[0].dataValues.direccion;
+            //devolver lo que necesitas
+            res.status(200).json({ carrito, dire, pago: formaDePago });
+        }
+    } catch (error) {
+        console.error(error);
+        // expected output: ReferenceError: nonExistentFunction is not defined
+        // Note - error messages will vary depending on browser
+        res.status(400).json({msg:'Error en emision de lista - resvisar datos y servidores'})
     }
 })
 //// t e s t
@@ -468,7 +475,7 @@ servidor.post('/carrito/pedido', middlewere.checkJWT, async (req, res) => {
 
 servidor.get('/pedido', middlewere.checkJWT, middlewere.middleWereAdmin, async (req, res) => {
     //debugger;
-    
+
     const data = await servicio.consutlaGenerica('administrador');
     return res.json({ msg: 'ok', data });
 });
