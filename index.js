@@ -375,7 +375,8 @@ servidor.post('/carrito', middlewere.checkJWT, async (req, res) => {
 
     const idUsuario = middlewere.getID(codigo, firma);
 
-    const formaDePago = req.body.pago;
+    //const formaDePago = req.body.pago;
+    const formaDePago = 'Efectivo';
     //Hacer algo con la respuesta que indique ademas si es admin el id
     //suponemos idCliente = lo ingresamos manualmente
     //console.log(req.body.id);
@@ -387,10 +388,10 @@ servidor.post('/carrito', middlewere.checkJWT, async (req, res) => {
     if (dat2 == "") {
         res.status(200).json({ msg: 'Agrega tu primer item!', dat2 });
     } else {
-        let test = JSON.parse(dat2[0].carrito);
+        let carrito = JSON.parse(dat2[0].carrito);
         let dire = busquedaDir[0].dataValues.direccion;
         //devolver lo que necesitas
-        res.status(200).json({ test, dire, pago: formaDePago });
+        res.status(200).json({ carrito, dire, pago: formaDePago });
     }
 })
 //// t e s t
