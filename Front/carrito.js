@@ -4,6 +4,8 @@ let pantallaCarrito = document.querySelector('#pantallaCarrito')
 let verResumen = document.querySelector('#resumen')
 //alert(verResumen.innerHTML)
 
+
+
 async function carritoShow() {
     let total = 0
     fetch(`http://localhost:3000/carrito`, {
@@ -19,23 +21,17 @@ async function carritoShow() {
         console.log(data)
         return data
     }).then(function (data) {
-        //alert('yay')
-        //alert(Object.keys(data.msg[2]));
         let arrayAux = data.carrito
-
         for (let index = 0; index < arrayAux.length; index++) {
             const element = arrayAux[index];
-            //alert(element[0].nombre)
             total += element[0].precio;
             pantallaCarrito.innerHTML +=
             `
             <div class="titulo"><h3>${element[0].nombre} - $ ${element[0].precio}</h3></div>
-        
             <div>
-                <button class="addToCartButton" onclick="RemoveToCart(this.id)" id="${element[0].nombre}">Remove</button>
+                <button class="addToCartButton" onclick="removeFromCart(this.id)" id="${element[0].nombre}">Remove</button>
             </div>`
         }
-        
         /*<div class="imagentProducto"><img src="${element[0].imagen}" alt=""></div>
         <div>
             <div class="elementos">
@@ -64,19 +60,12 @@ async function carritoShow() {
         //         </div>`
         return(data)
     }).then(function(data) {
-            //console.log('?')
-            //alert('jp;a')
             verResumen.innerHTML = `
             <h2>Resumen</h2>
             <h3>Total: $${total}</h3>
             <p>Tipo de pago: ${(data.pago)}</p>
             <p>Direccion de entrega: ${(data.dire)}</p>
             `
-            // // addToCartButton = document.getElementsByClassName('addToCartButton')
-            // // addToCartButton.forEach(element => {
-            // //     element.addEventListener('click', alert)
-            // // });
-            //addToCartButton.addEventListener('click', alert)
     }).catch(error => {
         console.error(error)
         location.reload();
@@ -85,3 +74,35 @@ async function carritoShow() {
 
     });
 };
+
+/// remove button
+
+async function removeFromCart(id) {
+    let idProducto = {nombre: id}
+    fetch(`http://localhost:3000/productos/removeCarrito`, {
+        method: "PUT",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3MTc1NTIxfQ.zs23gE2zCmPxGBuzqa1PSwfd7zd4_0wFl3XpJ-trWFQ"
+            //Content-Type: "application/json",
+        },
+        body: JSON.stringify(idProducto)
+    }).then(function (rawResponse) {
+        //alert('ehy2')
+        const data = rawResponse.json();
+        //alert(data)
+        return data
+    }).then(function (data) {
+        //alert(Object.keys(data.msg[2]));
+        //localStorage.setItem('token', (data.token || data.msg))
+        alert(data.msg)
+        //alert(data.nom)
+    }).then(function(){
+        location.reload();
+    }).catch(error => {
+            console.error(error)
+            alert('Sin conexion a servidores')
+    })
+};
+

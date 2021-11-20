@@ -64,7 +64,7 @@ async function addToCart(id) {
         },
         body: JSON.stringify(idProducto)
     }).then(function (rawResponse) {
-        alert('ehy2')
+        //alert('ehy2')
         const data = rawResponse.json();
         //alert(data)
         return data
@@ -72,7 +72,7 @@ async function addToCart(id) {
         //alert(Object.keys(data.msg[2]));
         //localStorage.setItem('token', (data.token || data.msg))
         alert(data.msg)
-        alert(data.nom)
+        //alert(data.nom)
     }).catch(error => {
             console.error(error)
             alert('Sin conexion a servidores')
