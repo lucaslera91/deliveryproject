@@ -20,66 +20,87 @@ async function pedidosShow() {
         //alert('yay')
         //alert(Object.keys(data.msg[2]));
         //alert(data.msg)
-        
+
         //alert(Object.keys(data.data[0]))
         //let titulo = [Object.keys.data.data[0]]
         let aux = data.data
         //const values = Object.values(obj);
         let values = "";
-        pedidosTabla.innerHTML = `
-                <div class="row">`
+        // pedidosTabla.innerHTML = `
+        //         <div class="row">`
+        let color = true
+
         aux.forEach(element => {
+            if (color == ture) {
+                backGroudColor = 'pedidocolor1'
+            } else {
+                backGroudColor = 'pedidocolor2'
+            }
+
             values = Object.values(element);
-           for (let index = 0; index < values.length; index++) {
-               const element2 = values[index];
-                
-                pedidosTabla.innerHTML += `  
-                <div class="col">${element2}}<div>`
-               
-           }
-           pedidosTabla.innerHTML +=`<div class="w-100"></div>`
+            for (let index = 0; index < values.length; index++) {
+                const element2 = values[index];
+                if (index == 2) {
+                    let date = new Date(element2)
+                    let options = {
+                        month: "numeric",
+                        day: "numeric", hour: "2-digit", minute: "2-digit"
+                    }
+                    date = date.toLocaleTimeString("en-ar", options)
+                    //alert(date)
+                    pedidosTabla.innerHTML += ` 
+                    <div class="col-3">
+                        <div class"${backGroudColor}">
+                            <div class="pedidocolor1">
+                                <p>${date}</p>
+                            </div>
+                        </div>
+                    <div>`
+                } else {
+                    pedidosTabla.innerHTML += ` 
+                        <div class="col-3">
+                            <div class"${backGroudColor}">
+                                <p>${element2}</p>
+                            </div>
+                        <div>`
 
-
-           // const values = Object.values(j);
-
-                //pedidosTabla.innerHTML += element.nombre
+                }
+            }
+            color = !color
+            alert(color)
+            pedidosTabla.innerHTML += `<div class="w-100"></div>`
         })
-        pedidosTabla.innerHTML +=`</div>`
+        pedidosTabla.innerHTML += `</div>`
 
-            /*pedidosTabla.innerHTML +=
-                `
-                <div class="row">
-                <div class="col">col</div>
-                <div class="w-100"></div>
-                <div class="col">col</div>
-                <div class="col">col</div>
-                <div class="col">col</div>
-                
-            </div>
-                
-                <div class="titulo"><h3>${element.nombre}</h3></div>
-                <div class="imagentProducto"><img src="${element.imagen}" alt=""></div>
-                <div>
-                    <div class="elementos">
-                        ${element.descripcion} - $${element.precio}
-                    </div>
-                </div>
-                <div>
-                    <button class="addToCartButton" onclick="addToCart(this.id)" id="${element.nombre}">Add to cart</button>
-                </div>`
-            */    
-        
-    }).then(function() {
-            
-            // addToCartButton = document.getElementsByClassName('addToCartButton')
-            // addToCartButton.forEach(element => {
-            //     element.addEventListener('click', alert)
-            // });
-            //addToCartButton.addEventListener('click', alert)
-    }).catch(error => {
-        console.error(error)
-        //location.reload();
-        console.log('Error en vincular a los servidores - cargando productos..')
+    }).then(function () {
 
-    });
+
+        }).catch(error => {
+            console.error(error)
+            console.log('Error en vincular a los servidores - cargando productos..')
+
+            location.reload();
+
+        });
 };
+
+
+
+
+/*else {
+    if (color = true) {
+        //alert(index)
+        pedidosTabla.innerHTML += `
+        <div class="col-3">
+
+            <p>${element2}</p>
+
+        <div>`
+    } else {
+        pedidosTabla.innerHTML += `
+        <div class="col-3">
+
+            <p>${element2}</p>
+
+        <div>`
+    }*/
