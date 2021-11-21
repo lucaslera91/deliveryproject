@@ -1,6 +1,32 @@
 window.onload = pedidosShow
 let pedidosTabla = document.querySelector('#pedidosContainer')
 //alert(pedidosTabla.innerHTML)
+let testDeDispley = document.querySelector('#testID')
+//alert(testDeDispley.innerHTML)
+let elmts = ["Creado", "En curso", "Pendiente", "Entregada", "Anulada"];
+let estado = document.querySelector('#estado')
+let trying = document.querySelector('#numero2')
+
+function GFG_Fun(id) {
+  //testDeDispley.style.display = 'none'
+  let droptest = document.querySelector(`#${id}`)
+  alert(droptest.innerHTML)
+  //alert('yay')
+  for (let i = 0; i < elmts.length; i++) {
+    let optn = elmts[i];
+    //alert(optn)
+    let el = document.createElement("option");
+    //alert(el.textContent)
+    el.textContent = optn;
+    el.value = optn;
+    droptest.appendChild(el);
+  }
+  droptest.innerHTML = el.value;
+
+
+}
+//testDeDispley.style.display = 'none'
+
 
 async function pedidosShow() {
   pedidosTabla.innerHTML = ""
@@ -27,7 +53,7 @@ async function pedidosShow() {
     //const values = Object.values(obj);
     let values = "";
     //pedidosTabla.innerHTML = `
-      //       <div class="row">`
+    //       <div class="row">`
     let color = true
     let aux = data.data
     //console.log(aux)
@@ -38,7 +64,7 @@ async function pedidosShow() {
 
     aux.forEach(element => {
       if (color == true) {
-        backGroudColor = 'rgb(212, 212, 212, 0.3)' 
+        backGroudColor = 'rgb(212, 212, 212, 0.3)'
       } else {
         backGroudColor = 'rgb(212, 212, 212, 0,7)'
       }
@@ -56,10 +82,16 @@ async function pedidosShow() {
           //alert(date)
           pedidosTabla.innerHTML += ` 
                     <div class="col-3" style="background-color:${backGroudColor}">
-                     
                                 ${date}
-                     
                     </div>`
+        } else if (index == 1) {
+          
+
+          pedidosTabla.innerHTML += ` 
+          <div class="col-3" style="background-color: ${backGroudColor}">
+          <select name="dropLsit" id="drop">${element2}</select>
+          <button type="button" onclick="GFG_Fun(this.id)" id="numero${element.id}" class="btn btn-outline-light">Edit</button>
+          </div>`
         } else {
           pedidosTabla.innerHTML += ` 
                         <div class="col-3" style="background-color: ${backGroudColor}">
