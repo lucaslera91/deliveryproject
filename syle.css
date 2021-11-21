@@ -1,6 +1,7 @@
 /* Icon 1 */
 *{
-    background-color: #281e5d;
+    /* 0, g: 107, b: 119 */
+    background-color: rgb(0, 107, 119);
     color: #f3e5f5;
     margin: 0px;
     padding: 0px;
@@ -124,7 +125,7 @@ transition: .25s ease-in-out;
 }
 
 .animated-icon1 span {
-background: indigo;
+background: rgb(0, 107, 119);
 }
 
 .animated-icon2 span {
@@ -255,4 +256,9 @@ opacity: 0;
 transform: rotate(-45deg);
 top: 21px;
 left: 8px;
+}
+#hamburgerButton{
+    outline: 0;
+  border: none;
+  
 }
