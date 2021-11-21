@@ -5,6 +5,7 @@
     color: #f3e5f5;
     margin: 0px;
     padding: 0px;
+    font-family: 'Dosis', sans-serif;
 }
 input{
     position: absolute;
@@ -109,7 +110,7 @@ cursor: pointer;
 .animated-icon1 span, .animated-icon2 span, .animated-icon3 span {
 display: block;
 position: absolute;
-height: 3px;
+height: 1px;
 width: 100%;
 border-radius: 9px;
 opacity: 1;
