@@ -30,11 +30,85 @@ async function pedidosShow() {
         //         <div class="row">`
         let color = true
 
-        aux.forEach(element => {
-            if (color == ture) {
-                backGroudColor = 'pedidocolor1'
+
+
+        new FancyGrid({
+            theme: 'bootstrap',
+            title: 'Pedidos',
+            renderTo: 'container',
+            width: 750,
+            height: 400,
+            data: aux,
+            paging: true,
+            selModel: 'rows',
+            trackOver: true,
+            tbar: [{
+              type: 'button',
+              text: 'Add',
+              action: 'add'
+            }, {
+              type: 'button',
+              text: 'Delete',
+              action: 'remove'
+            }],
+            defaults: {
+              type: 'string',
+              width: 100,
+              editable: true,
+              sortable: true,
+              ellipsis: true,
+              resizable: true
+            },
+            columns: [{
+              index: 'id',
+              locked: true,
+              title: 'ID',
+              type: 'number',
+              editable: false,
+              width: 40
+            }, {
+              index: 'estado',
+              locked: true,
+              title: 'Estado'
+            }, {
+              text: 'Base Info',
+              columns: [{
+                index: 'hora',
+                title: 'Hora'
+              }, {
+                index: 'descripcion',
+                title: 'Descripcion'
+              }, {
+                index: 'pago',
+                title: 'Tipo de pago',
+                type: 'string'
+              }]
+            }, {
+              index: 'monto',
+              title: 'Monto',
+              type: 'number',
+              //width: 99,
+              //data: ['USA', 'Canada', 'England']
+            }, {
+              index: 'usuario',
+              title: 'Usuario',
+              type: 'string',
+              width: 60
+            }, {
+              index: 'direccion',
+              title: 'Direccion',
+              vtype: 'string',
+              width: 150
+            }]
+          });
+        
+
+
+        /*aux.forEach(element => {
+            if (color == true) {
+                backGroudColor = 'rgb(212, 212, 212, 0.3)'
             } else {
-                backGroudColor = 'pedidocolor2'
+                backGroudColor = 'rgb(212, 212, 212, 0,7)'
             }
 
             values = Object.values(element);
@@ -49,28 +123,26 @@ async function pedidosShow() {
                     date = date.toLocaleTimeString("en-ar", options)
                     //alert(date)
                     pedidosTabla.innerHTML += ` 
-                    <div class="col-3">
-                        <div class"${backGroudColor}">
-                            <div class="pedidocolor1">
-                                <p>${date}</p>
-                            </div>
-                        </div>
-                    <div>`
+                    <div class="col-3" style="background-color:${backGroudColor}">
+                     
+                                ${date}
+                     
+                    </div>`
                 } else {
                     pedidosTabla.innerHTML += ` 
-                        <div class="col-3">
-                            <div class"${backGroudColor}">
-                                <p>${element2}</p>
-                            </div>
-                        <div>`
+                        <div class="col-3" style="background-color: ${backGroudColor}">
+                            
+                                ${element2}
+                          
+                        </div>`
 
                 }
             }
             color = !color
-            alert(color)
+            //alert(color)
             pedidosTabla.innerHTML += `<div class="w-100"></div>`
         })
-        pedidosTabla.innerHTML += `</div>`
+        pedidosTabla.innerHTML += `</div>`*/
 
     }).then(function () {
 
