@@ -20,27 +20,34 @@ async function productShow() {
     }).then(function (data) {
         //alert('yay')
         //alert(Object.keys(data.msg[2]));
+        let color = true
         data.dat.forEach(element => {
-            //pantallaProducto.innerHTML +=
-                //`
-              
-               
-              // `
-                //< !-- < div class="col" > col</div > -->
-                //< !-- < div class="w-100" ></div >
-                //<div class="col">col</div>
-                //<div class="col">col</div>
-                //<div class="col">col</div> -->
 
-/*
-  <div class="col">${element.imagen}</div>
-                <div class="col">${element.nombre}</div>
-                <div class="col">${element.precio}</div>
-                <div class="w-100"></div>
-*/
+            if (color == true) {
+                backGroudColor = 'rgb(212, 212, 212, 0.3)'
+              } else {
+                backGroudColor = 'rgb(212, 212, 212, 0,7)'
+              }
+            pantallaProducto.innerHTML +=
+            `
+            <div class="col-12" style="background-color: ${backGroudColor};">${element.nombre}</div>
+            <div class="container">
+            <div class="row" id="box2">
+                <div class="col-5" style="background-color: ${backGroudColor};"><img src="${element.imagen}" alt=""></div>
+                <div class="col-7" style="background-color: ${backGroudColor};">${element.descripcion}
+                    <div class="row" id="box3">
+                        <div class="col-6" style="background-color: ${backGroudColor};">${element.precio}</div>
 
-
+                        <div class="col-6" style="background-color: ${backGroudColor};">
+                            <button class="addToCartButton" onclick="addToCart(this.id)" id="${element.nombre}">Add to cart</button>
+                        </div>
+                </div>
                 
+                </div>
+            </div>`
+
+            color = !color
+ 
         })
     }).then(function () {
 
@@ -51,7 +58,7 @@ async function productShow() {
         //addToCartButton.addEventListener('click', alert)
     }).catch(error => {
         console.error(error)
-        location.reload();
+        //location.reload();
         console.log('Error en vincular a los servidores - cargando productos..')
 
     });
