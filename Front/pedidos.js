@@ -54,32 +54,15 @@ async function pedidosShow() {
     console.log(data)
     return data
   }).then(function (data) {
-    //alert('yay')
-    //alert(Object.keys(data.msg[2]));
-    //alert(data.msg)
-
-    //alert(Object.keys(data.data[0]))
-    //let titulo = [Object.keys.data.data[0]]
-
-    //const values = Object.values(obj);
     let values = "";
-    //pedidosTabla.innerHTML = `
-    //       <div class="row">`
     let color = true
     let aux = data.data
-    //console.log(aux)
-    //console.log(data.data)
-    //testeando.innerHTML = aux
-
-
-
     aux.forEach(element => {
       if (color == true) {
         backGroudColor = 'rgb(212, 212, 212, 0.3)'
       } else {
         backGroudColor = 'rgb(212, 212, 212, 0,7)'
       }
-
       values = Object.values(element);
       for (let index = 0; index < values.length; index++) {
         const element2 = values[index];

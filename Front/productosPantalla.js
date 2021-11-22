@@ -21,26 +21,34 @@ async function productShow() {
         //alert('yay')
         //alert(Object.keys(data.msg[2]));
         data.dat.forEach(element => {
-            pantallaProducto.innerHTML +=
-                `<div class="titulo"><h3>${element.nombre}</h3></div>
-                <div class="imagentProducto"><img src="${element.imagen}" alt=""></div>
-                <div>
-                    <div class="elementos">
-                        ${element.descripcion} - $${element.precio}
-                    </div>
-                </div>
-                <div>
-                    <button class="addToCartButton" onclick="addToCart(this.id)" id="${element.nombre}">Add to cart</button>
-                </div>`
+            //pantallaProducto.innerHTML +=
+                //`
+              
+               
+              // `
+                //< !-- < div class="col" > col</div > -->
+                //< !-- < div class="w-100" ></div >
+                //<div class="col">col</div>
+                //<div class="col">col</div>
+                //<div class="col">col</div> -->
+
+/*
+  <div class="col">${element.imagen}</div>
+                <div class="col">${element.nombre}</div>
+                <div class="col">${element.precio}</div>
+                <div class="w-100"></div>
+*/
+
+
                 
         })
-    }).then(function() {
-            
-            // addToCartButton = document.getElementsByClassName('addToCartButton')
-            // addToCartButton.forEach(element => {
-            //     element.addEventListener('click', alert)
-            // });
-            //addToCartButton.addEventListener('click', alert)
+    }).then(function () {
+
+        // addToCartButton = document.getElementsByClassName('addToCartButton')
+        // addToCartButton.forEach(element => {
+        //     element.addEventListener('click', alert)
+        // });
+        //addToCartButton.addEventListener('click', alert)
     }).catch(error => {
         console.error(error)
         location.reload();
@@ -49,11 +57,25 @@ async function productShow() {
     });
 };
 
+/*
+
+
+                <div class="titulo"><h3>${element.nombre}</h3></div>
+                <div class="imagentProducto"><img src="${element.imagen}" alt=""></div>
+                <div>
+                    <div class="elementos">
+                        ${element.descripcion} - $${element.precio}
+                    </div>
+                </div>
+                <div>
+                    <button class="addToCartButton" onclick="addToCart(this.id)" id="${element.nombre}">Add to cart</button>
+                </div>
+*/
 
 //addToCartButton.addEvent
 //addToCart()
 async function addToCart(id) {
-    let idProducto = {nombre: id}
+    let idProducto = { nombre: id }
     fetch(`http://localhost:3000/productos/addCarrito`, {
         method: "PUT",
         headers: {
@@ -74,8 +96,8 @@ async function addToCart(id) {
         alert(data.msg)
         //alert(data.nom)
     }).catch(error => {
-            console.error(error)
-            alert('Sin conexion a servidores')
+        console.error(error)
+        alert('Sin conexion a servidores')
     })
 };
 
