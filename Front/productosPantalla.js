@@ -39,7 +39,7 @@ async function productShow() {
                         <div class="col-6" style="background-color: ${backGroudColor};">${element.precio}</div>
 
                         <div class="col-6" style="background-color: ${backGroudColor};">
-                            <button class="addToCartButton" onclick="addToCart(this.id)" id="${element.nombre}">Add to cart</button>
+                            <button type="button" class="btn btn-light" id="${element.nombre}">Add to cart</button>
                         </div>
                 </div>
                 
@@ -47,7 +47,7 @@ async function productShow() {
             </div>`
 
             color = !color
- 
+ //<button class="addToCartButton" onclick="addToCart(this.id)" id="${element.nombre}">Add to cart</button>
         })
     }).then(function () {
 

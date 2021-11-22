@@ -14,6 +14,9 @@ input{
     width: 30%;
     color: black;
 }
+.col-6 button{
+    width: 100%;
+}
 
 #productScreen{
     width: 100%;
