@@ -81,11 +81,31 @@ const Pro = sequelize.define('admin', {
 
 // consultas tabla admin
 
-async function consultaAdmin() {
-    const datos = await Pro.findAll({
-    });
-    return datos;
+async function consultaAdmin(criterioFiltro) {
+    console.log(criterioFiltro)
+    //console.log(Pro.id)
+    if (criterioFiltro == "" || null ) {
+        const datos = await Pro.findAll({
+            //attributes: arrayAttributosProductos
+        })
+        //console.log(datos);
+        return datos;
+    } else {
+        const datos = await Pro.findAll({
+            //where: {nombre: criterioFiltro},
+            where: {id: criterioFiltro},
+        });
+        console.log(datos)
+        return datos;
+    }
 }
+
+//--------
+
+
+
+//--------
+
 
 // agregar un pedido en Admin
 async function agregarPedido(param) {
@@ -96,7 +116,7 @@ async function agregarPedido(param) {
 
 // modificar el estado de un pedido de tabla Admin
 
-async function modificarEstado(status, usuario) {
+async function modificarEstado(status, id) {
     //[{atributo: modificacion}, {condicion: fieldRequired}]
     //let condicion = param[0];   
     //let atributo = param[1];
@@ -104,7 +124,7 @@ async function modificarEstado(status, usuario) {
     const modificar = await Pro.update(
         { estado: status }
         , {
-            where: { usuario: usuario }
+            where: { id: id }
         });
     return modificar
     //return modificar
