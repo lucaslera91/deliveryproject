@@ -398,7 +398,7 @@ servidor.post('/carrito', middlewere.checkJWT, async (req, res) => {
         console.error(error);
         // expected output: ReferenceError: nonExistentFunction is not defined
         // Note - error messages will vary depending on browser
-        res.status(400).json({msg:'Error en emision de lista - resvisar datos y servidores'})
+        res.status(400).json({ msg: 'Error en emision de lista - resvisar datos y servidores' })
     }
 })
 //// t e s t
@@ -476,7 +476,7 @@ servidor.post('/carrito/pedido', middlewere.checkJWT, async (req, res) => {
 servidor.get('/pedido', middlewere.checkJWT, middlewere.middleWereAdmin, async (req, res) => {
     //debugger;
 
-    const data = await servicio.consutlaGenerica('administrador');
+    const data = await servicio.consutlaGenerica('administrador', "");
     return res.json({ msg: 'ok', data });
 });
 
@@ -488,27 +488,38 @@ servidor.get('/pedido', middlewere.checkJWT, middlewere.middleWereAdmin, async (
 servidor.post('/pedido/estado', middlewere.checkJWT, middlewere.middleWereAdmin, async (req, res) => {
     const codigo = req.headers.authorization;
     const firma = process.env.jwt_Firma;
-
     const id = middlewere.getID(codigo, firma);
+    console.log(id)
+    console.log(firma)
+    //console.log(status)
     //const id = req.body.idUsuario;
     const status = req.body.estado;
-    if (codigo === undefined || codigo === null ||
-        name === undefined || name === null ||
-        firma === undefined || firma === null ||
+    const idPedido = req.body.idPed;
+    console.log(req.body)
+    console.log(idPedido)
+
+    if (firma === undefined || firma === null ||
         id === undefined || id === null ||
         status === undefined || status === null
     ) {
         // do something que indique error
         return res.status(500).json({ msg: '404 - Error en los datos' });
     } else {
-        const data = await servicio.consutlaGenerica('usuarios', id);
+        const data = await servicio.consutlaGenerica('administrador', idPedido);
         // Buscar Usuario
-        const user = data[0].usuario;
-        console.log(user);
+        //const pedido = data[0].id;
+        //console.log(user);
         console.log(status);
+        console.log(id)
 
-        let estadoActualizado = await admin.modificarEstado(status, user);
-        return res.status(200).json({ msg: 'Pedido Actualizado' });
+        let estadoActualizado = await admin.modificarEstado(status, idPedido);
+        console.log(estadoActualizado[0])
+        if (estadoActualizado[0] == 0) {
+            return res.status(200).json({ msg: 'No se realizaron cambios' });
+        } else {
+            console.log(estadoActualizado)
+            return res.status(200).json({ msg: 'Pedido Actualizado' });
+        }
     }
 });
 
