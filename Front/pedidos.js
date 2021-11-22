@@ -8,17 +8,9 @@ let elmts = ["Creado", "En curso", "Pendiente", "Entregada", "Anulada"];
 //let trying = document.querySelector('#numero2')
 
 function GFG_Fun(valueEstado, id) {
-  debugger
-  //alert(id)
-  let aux = id
+
   let auxEstado = { estado: valueEstado, idPed: id }
-  debugger
-  //alert(valueEstado)
-  //alert(auxEstado.estado)
-  //alert(auxEstado.idPed)
-  console.log(id)
-  console.log(auxEstado)
-  console.log('tasldfj')
+
   fetch(`http://localhost:3000/pedido/estado`, {
     method: "POST",
     headers: {
@@ -29,22 +21,17 @@ function GFG_Fun(valueEstado, id) {
     },
     body: JSON.stringify(auxEstado)
   }).then(function (rawResponse) {
-    //   //alert('ehy2')
     console.log(rawResponse)
     const data = rawResponse.json();
-    console.log('data')
     console.log(data)
     return data
   }).then(function (data) {
     //DO SOMETHING?
-
   }).catch(error => {
     console.error(error)
     console.log('Error en vincular a los servidores - cargando productos..')
-
     //location.reload();
   });
-
 };
 
 
