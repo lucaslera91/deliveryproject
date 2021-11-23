@@ -93,6 +93,9 @@ a{
     width: fit-content;
     white-space: nowrap;
 }
+#navBar {
+    border-bottom: 1px solid rgb(212, 212, 212, 1);
+}
 
 .animated-icon1, .animated-icon2, .animated-icon3 {
 width: 30px;
