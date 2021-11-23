@@ -29,9 +29,9 @@
                 const element = arrayAux[index];
                 total += element[0].precio;
                 if (color == true) {
-                    backGroudColor = 'rgb(212, 212, 212, 0.3)'
+                    backGroudColor = 'rgb(212, 212, 212, 0.1)'
                   } else {
-                    backGroudColor = 'rgb(212, 212, 212, 0,7)'
+                    backGroudColor = 'rgb(212, 212, 212, 0,4)'
                   }
 
                 pantallaCarrito.innerHTML +=

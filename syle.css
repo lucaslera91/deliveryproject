@@ -1,7 +1,7 @@
 /* Icon 1 */
 *{
     /* 0, g: 107, b: 119 */
-    background-color: rgb(0, 107, 119);
+    background-color: rgb(0, 107, 119, 0.8);
     color: #f3e5f5;
     margin: 0px;
     padding: 0px;
@@ -103,6 +103,8 @@ a{
 }
 #navBar {
     border-bottom: 1px solid rgb(212, 212, 212, 1);
+    background-color: rgb(0, 107, 119);
+
 }
 .col-12 {
 
@@ -110,8 +112,16 @@ text-decoration: none;
 border-bottom: 1px solid rgb(212, 212, 212, 1);
 line-height: 1.4;
 font-weight: 900;
-font-size: 8vw;
+font-size: 5.5vw;
+display: flex;
+justify-content: flex-start;
 
+}
+#logo{
+    position: absolute;
+    width: 30px;
+    top: 22px;
+    left: 90%;
 }
 .container{
     height: 100%;
