@@ -28,25 +28,26 @@ async function productShow() {
               } else {
                 backGroudColor = 'rgb(212, 212, 212, 0,7)'
               }
+              //style="background-color: ${backGroudColor};""
             pantallaProducto.innerHTML +=
             `
             <div class="col-12" style="background-color: ${backGroudColor};">${element.nombre}</div>
-            <div class="container">
-            <div class="row" id="box2">
-                <div class="col-5" style="background-color: ${backGroudColor};"><img src="${element.imagen}" alt=""></div>
-                <div class="col-7" style="background-color: ${backGroudColor};">${element.descripcion}
+            <div class="container" ">
+            <div class="row" id="box2" >
+                <div class="col-5" id="imgBox"><img src="${element.imagen}" alt=""></div>
+                <div class="col-7"  style="background-color: ${backGroudColor}; line-height: 1.8;">
                     <div class="row" id="box3">
-                        <div class="col-6" style="background-color: ${backGroudColor};">${element.precio}</div>
-
-                        <div class="col-6" style="background-color: ${backGroudColor};">
+                    <div class="col-12" id="descriptionBox" >${element.descripcion}</div>
+                        <div class="col-6"  id="priceTag">${element.precio}</div>
+                        <div class="col-6" >
                             <button type="button" class="btn btn-light" id="${element.nombre}">Add to cart</button>
                         </div>
-                </div>
+                    </div>
                 
                 </div>
             </div>`
 
-            color = !color
+            color = color
  //<button class="addToCartButton" onclick="addToCart(this.id)" id="${element.nombre}">Add to cart</button>
         })
     }).then(function () {
@@ -58,7 +59,7 @@ async function productShow() {
         //addToCartButton.addEventListener('click', alert)
     }).catch(error => {
         console.error(error)
-        //location.reload();
+        location.reload();
         console.log('Error en vincular a los servidores - cargando productos..')
 
     });

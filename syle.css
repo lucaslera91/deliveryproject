@@ -14,8 +14,31 @@ input{
     width: 30%;
     color: black;
 }
+
+button{
+    width: 20%;
+    padding: 4px;
+    padding-right: 80px;
+    border-radius: 8px;
+    white-space: nowrap;
+    color: black;
+    background-color: #f3e5f5;
+ 
+}
+.col-6 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .col-6 button{
+    height: 100%;
     width: 100%;
+    max-height: 40px;
+    font-size: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(212, 212, 212, 1);
 }
 
 #productScreen{
@@ -36,23 +59,12 @@ ul{
     
 }
 
-button{
-    width: 20%;
-    padding: 4px;
-    padding-right: 80px;
-    border-radius: 8px;
-    white-space: nowrap;
-    color: black;
-    background-color: #f3e5f5;
- 
-}
+
 .col-3{
     display: flex;
 } 
 .col-3 button{
     width: 100%;
-    
-   
 }
 
 
@@ -63,7 +75,6 @@ section{
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background-color: red; */
 }
 .elementos{
     display: flex;
@@ -80,11 +91,8 @@ li{
     justify-content: flex-start;
     
 }
-img{
-    height: 100px;
-    border-radius: 8px;
-    border: 2px solid rgb(212, 212, 212, 0,7);
-}
+
+
 a{
     text-decoration: none;
     color: black;
@@ -95,6 +103,59 @@ a{
 }
 #navBar {
     border-bottom: 1px solid rgb(212, 212, 212, 1);
+}
+.col-12 {
+
+text-decoration: none;
+border-bottom: 1px solid rgb(212, 212, 212, 1);
+line-height: 1.4;
+font-weight: 900;
+font-size: 8vw;
+
+}
+.container{
+    height: 100%;
+    margin = 0px
+}
+#box2{
+    height: 100%;
+}
+#box3{
+    overflow: hidden;
+    height: 100%;
+}
+#descriptionBox{
+    font-size: 4vw;
+    border-bottom: none;
+
+}
+#priceTag{
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4vw;
+}
+#imgBox{
+    padding: 5px;
+    height: 1500px;
+    max-height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+   top: 50%;
+
+}
+#imgBox img{
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    object-fit: fill;
+    border: 1px solid rgb(212, 212, 212, 1);
+    border-radius: 8px;
+    height: 1500px;
+
 }
 
 .animated-icon1, .animated-icon2, .animated-icon3 {
@@ -269,3 +330,56 @@ left: 8px;
   border: none;
   
 }
+
+@media screen and (min-width: 600px) {
+    *{
+        margin: 0;
+      
+    }
+    .col-12 {
+        font-size: 6vw;
+    }
+    
+    #descriptionBox{
+        font-size: 3vw;
+    
+    }
+   
+    #box2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+   
+    .col-6 button{
+        height: 75%;
+        width: 75%;
+        font-size: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+  }
+  @media screen and (min-width: 1280px) {
+    *{
+        margin: 0;
+      
+    }
+    .col-12 {
+        font-size: 4vw;
+    }
+    #descriptionBox{
+        font-size: 3vw;
+    
+    }
+    
+    .col-6 button{
+        height: 75%;
+        width: 75%;
+        font-size: 2vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+  }
