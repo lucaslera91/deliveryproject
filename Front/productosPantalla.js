@@ -38,7 +38,7 @@ async function productShow() {
                 <div class="col-7"  style="background-color: ${backGroudColor}; line-height: 1.8;">
                     <div class="row" id="box3">
                     <div class="col-12" id="descriptionBox" >${element.descripcion}</div>
-                        <div class="col-6"  id="priceTag">${element.precio}</div>
+                        <div class="col-6"  id="priceTag">$ ${element.precio}</div>
                         <div class="col-6" >
                             <button type="button" class="btn btn-light" id="${element.nombre}" onclick="addToCart(this.id)">Add to cart</button>
                         </div>

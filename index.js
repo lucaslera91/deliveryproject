@@ -349,9 +349,11 @@ servidor.put('/productos/removeCarrito', middlewere.checkJWT, async (req, res) =
         });
 
         //console.log(array);
-
-        const found = array.findIndex(element => element.nombre == nom);
+        //element => element.nombre == nom
+        const found = (element) => element.nombre == nom;
+        console.log(array.findIndex(found))
         //console.log(found);
+        console.log(array.nombre)
         console.log('found' + " " + nom);
         console.log(found)
         array.splice(found, 1);
