@@ -24,15 +24,35 @@
             return data
         }).then(function (data) {
             let arrayAux = data.carrito
+            let color = true
             for (let index = 0; index < arrayAux.length; index++) {
                 const element = arrayAux[index];
                 total += element[0].precio;
+                if (color == true) {
+                    backGroudColor = 'rgb(212, 212, 212, 0.3)'
+                  } else {
+                    backGroudColor = 'rgb(212, 212, 212, 0,7)'
+                  }
+
                 pantallaCarrito.innerHTML +=
                     `
-            <div class="titulo"><h3>${element[0].nombre} - $ ${element[0].precio}</h3></div>
-            <div>
-                <button class="addToCartButton" onclick="removeFromCart(this.id)" id="${element[0].nombre}">Remove</button>
-            </div>`
+            
+            <div class="col-12" style="background-color: ${backGroudColor};">${element[0].nombre}</div>
+            <div class="container" ">
+            <div class="row" id="box2" >
+                <div class="col-5" id="imgBox"><img src="${element[0].imagen}" alt=""></div>
+                <div class="col-7"  style="background-color: ${backGroudColor}; line-height: 1.8;">
+                    <div class="row" id="box3">
+                    <div class="col-12" id="descriptionBox" >${element[0].descripcion}</div>
+                        <div class="col-6"  id="priceTag">$${element[0].precio}</div>
+                        <div class="col-6" >
+                            <button type="button" class="btn btn-light" id="${element[0].nombre}" onclick="removeFromCart(this.id)">Delete</button>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+            `
             }
             /*<div class="imagentProducto"><img src="${element[0].imagen}" alt=""></div>
             <div>
@@ -62,9 +82,10 @@
             //         </div>`
             return (data)
         }).then(function (data) {
+            
             verResumen.innerHTML = `
-            <h2>Resumen</h2>
-            <h3>Total: $${total}</h3>
+            <h4>Resumen</h2>
+            <h5>Total: $${total}</h3>
             <p>Tipo de pago: ${(data.pago)}</p>
             <p>Direccion de entrega: ${(data.dire)}</p>
             `
@@ -75,6 +96,7 @@
             //reloadPlease = prompt('Error en vincular a los servidores - Reload (y/n)?')
             //verResumen.innerHTML = 'Check server conection'
             //alert('something is not ok')
+            location.reload();
             verResumen.innerHTML = `Check server conection`
 
         });

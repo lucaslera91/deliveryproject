@@ -341,20 +341,22 @@ servidor.put('/productos/removeCarrito', middlewere.checkJWT, async (req, res) =
         //buscar el ID del cliente
         const listadoCar = await usuarios.consultarCarrito(idUsuario);
         let array = [];
-        console.log(listadoCar[0].carrito)
+        //console.log(listadoCar[0].carrito)
 
         JSON.parse(listadoCar[0].carrito).forEach(element => {
             array.push(element);
 
         });
 
-        console.log(array);
+        //console.log(array);
 
         const found = array.findIndex(element => element.nombre == nom);
-        console.log(found);
+        //console.log(found);
+        console.log('found' + " " + nom);
+        console.log(found)
         array.splice(found, 1);
         //array.push({ nombre: nom });
-        console.log(array);
+        //console.log(array);
         let parametroCar = JSON.stringify(array);
         let idCliente = idUsuario;
         const prodActualizado = await usuarios.actualizarPedido(idCliente, parametroCar);
@@ -383,8 +385,8 @@ servidor.post('/carrito', middlewere.checkJWT, async (req, res) => {
         //console.log(req.body.id);
         const dat2 = await usuarios.consultarCarrito(idUsuario);
         let busquedaDir = await servicio.consutlaGenerica('usuarios', idUsuario);
-        console.log(busquedaDir[0].dataValues.direccion);
-        console.log(dat2[0].carrito);
+        //console.log(busquedaDir[0].dataValues.direccion);
+        //console.log(dat2[0].carrito);
 
         if (dat2 == "") {
             res.status(200).json({ msg: 'Agrega tu primer item!', dat2 });

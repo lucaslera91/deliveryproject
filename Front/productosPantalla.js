@@ -40,7 +40,7 @@ async function productShow() {
                     <div class="col-12" id="descriptionBox" >${element.descripcion}</div>
                         <div class="col-6"  id="priceTag">${element.precio}</div>
                         <div class="col-6" >
-                            <button type="button" class="btn btn-light" id="${element.nombre}">Add to cart</button>
+                            <button type="button" class="btn btn-light" id="${element.nombre}" onclick="addToCart(this.id)">Add to cart</button>
                         </div>
                     </div>
                 
@@ -52,11 +52,6 @@ async function productShow() {
         })
     }).then(function () {
 
-        // addToCartButton = document.getElementsByClassName('addToCartButton')
-        // addToCartButton.forEach(element => {
-        //     element.addEventListener('click', alert)
-        // });
-        //addToCartButton.addEventListener('click', alert)
     }).catch(error => {
         console.error(error)
         location.reload();
@@ -65,20 +60,6 @@ async function productShow() {
     });
 };
 
-/*
-
-
-                <div class="titulo"><h3>${element.nombre}</h3></div>
-                <div class="imagentProducto"><img src="${element.imagen}" alt=""></div>
-                <div>
-                    <div class="elementos">
-                        ${element.descripcion} - $${element.precio}
-                    </div>
-                </div>
-                <div>
-                    <button class="addToCartButton" onclick="addToCart(this.id)" id="${element.nombre}">Add to cart</button>
-                </div>
-*/
 
 //addToCartButton.addEvent
 //addToCart()

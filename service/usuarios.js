@@ -64,7 +64,7 @@ const Pro = sequelize.define('usuarios', {
         allowNull: false,
     },
     carrito: {
-        type: DataTypes.STRING(400),
+        type: DataTypes.STRING(3000),
         allowNull: false,
     },
     timestamps: false
