@@ -14,6 +14,11 @@ input{
     width: 30%;
     color: black;
 }
+#checkOut{
+    position: absolute;
+    top: 28px;
+    left: 67%
+}
 
 button{
     width: 20%;
@@ -157,8 +162,8 @@ justify-content: flex-start;
 }
 #imgBox{
     padding: 5px;
-    height: 1500px;
-    max-height: 120px;
+    height: 22vh;
+    max-height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -355,12 +360,22 @@ left: 8px;
         margin: 0;
       
     }
+    .row{
+        margin-right: 0px;
+        margin-left: 0px;
+      
+    }
+    .container{
+        margin-right: 0px;
+        margin-left: 0px;
+      
+    }
     .col-12 {
-        font-size: 6vw;
+        font-size: 3vw;
     }
     
     #descriptionBox{
-        font-size: 3vw;
+        font-size: 2vw;
     
     }
    
@@ -382,17 +397,43 @@ left: 8px;
   }
   @media screen and (min-width: 1280px) {
     *{
-        margin: 0;
+        margin: 0px;
+        margin-right: 0px;
+        margin-left: 0px;
+      
+    }
+    .row{
+        margin-right: 0px;
+        margin-left: 0px;
       
     }
     .col-12 {
-        font-size: 4vw;
+        font-size: 3vw;
     }
     #descriptionBox{
-        font-size: 3vw;
+        font-size: 2vw;
     
     }
+
+    #box2{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    #imgBox{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+       top: 50%;
     
+    }
+    #imgBox img{
+        justify-content: flex-start;
+        max-height: 150px;
+
+    }
+   
     .col-6 button{
         height: 75%;
         width: 75%;

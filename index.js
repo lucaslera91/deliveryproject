@@ -390,7 +390,7 @@ servidor.post('/carrito', middlewere.checkJWT, async (req, res) => {
         //console.log(busquedaDir[0].dataValues.direccion);
         //console.log(dat2[0].carrito);
 
-        if (dat2 == "") {
+        if (dat2 == "" || null) {
             res.status(200).json({ msg: 'Agrega tu primer item!', dat2 });
         } else {
             let carrito = JSON.parse(dat2[0].carrito);
@@ -425,6 +425,7 @@ servidor.post('/carrito/pedido', middlewere.checkJWT, async (req, res) => {
     const firma = process.env.jwt_Firma;
     const userID = middlewere.getID(codigo, firma);
     //const userID = req.body.idUsuario;
+    console.log(req.body.pago)
     const status = 'Creado';
     const tipoPago = req.body.pago;
     let monto = 0;
@@ -441,7 +442,8 @@ servidor.post('/carrito/pedido', middlewere.checkJWT, async (req, res) => {
         listadoPedido.push(element[0].nombre);
         monto += element[0].precio;
     });
-
+    console.log(monto)
+    console.log(listadoAux)
     // Buscar la direccion
 
     const data = await servicio.consutlaGenerica('usuarios', userID);
