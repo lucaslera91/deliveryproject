@@ -106,7 +106,7 @@ async function carritoShow() {
             `
        }else{
 
-        verResumen.innerHTML = `<h2>${data}</h2>`
+        verResumen.innerHTML = `<h2 id='primerItem'>${data}</h2>`
         checkOutButton.style.display = 'none'
        }
         

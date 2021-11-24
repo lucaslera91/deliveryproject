@@ -191,6 +191,13 @@ align-items: center;
 
 }
 
+#primerItem{
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .animated-icon1, .animated-icon2, .animated-icon3 {
 width: 30px;
 height: 20px;
