@@ -1,14 +1,47 @@
 let imagenProducto = document.querySelector('.imagentProducto')
 let tituloProducto = document.querySelector('.titulo')
 let pantallaProducto = document.querySelector('#productScreen')
+let lineaPedidosAdmin = document.querySelector('#listaPedidosAdmin')
+lineaPedidosAdmin.style.display = 'flex'
+
 let addToCartButton = 'realy'
-window.onload = productShow
+window.onload = function() {
+    productShow()
+    chekAdminToken()
+    //testing()
+}
+function chekAdminToken(){
+    fetch(`http://localhost:3000/pedido`, {
+        method: "GET",
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem('token')
+            //Content-Type: "application/json",
+        }
+    }).then(function (raw) {
+       const data = raw.json();
+       return data
+    }).then(function (data) {
+        //( data.msg == 'Ok') ? alert(ok) : alert('not ok')
+        if (data.msg == 'Ok'){
+            //alert('Done')
+        }else{
+            (lineaPedidosAdmin.style.display = 'none')
+        }
+    }).catch(error => {
+        console.error(error)
+        //alert('wtf')
+        //lineaPedidosAdmin.style.display = 'none'
+        location.reload();
+        console.log('No es admin')
+    });
+}
+
 
 async function productShow() {
     fetch(`http://localhost:3000/productos`, {
         method: "GET",
         headers: {
-            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3MTc1NTIxfQ.zs23gE2zCmPxGBuzqa1PSwfd7zd4_0wFl3XpJ-trWFQ",
+            Authorization: "Bearer " + localStorage.getItem('token')
             //Content-Type: "application/json",
         }
     }).then(function (rawResponse) {
@@ -70,7 +103,7 @@ async function addToCart(id) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3MTc1NTIxfQ.zs23gE2zCmPxGBuzqa1PSwfd7zd4_0wFl3XpJ-trWFQ"
+            Authorization: "Bearer " + localStorage.getItem('token')
             //Content-Type: "application/json",
         },
         body: JSON.stringify(idProducto)
