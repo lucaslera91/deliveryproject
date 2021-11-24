@@ -16,7 +16,7 @@ function GFG_Fun(valueEstado, id) {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3MTc1NTIxfQ.zs23gE2zCmPxGBuzqa1PSwfd7zd4_0wFl3XpJ-trWFQ"
+      Authorization: "Bearer " + localStorage.getItem('token')
       //Content-Type: "application/json",
     },
     body: JSON.stringify(auxEstado)
@@ -44,7 +44,7 @@ async function pedidosShow() {
   fetch(`http://localhost:3000/pedido`, {
     method: "GET",
     headers: {
-      Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3MTc1NTIxfQ.zs23gE2zCmPxGBuzqa1PSwfd7zd4_0wFl3XpJ-trWFQ",
+      Authorization: "Bearer " + localStorage.getItem('token')
       //Content-Type: "application/json",
     }
   }).then(function (rawResponse) {

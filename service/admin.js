@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // Conect to data base
+//Aqui se debe colocar los datos solicitados en .env
 
 const sequelize = new Sequelize(process.env.db_name, process.env.db_USUARIO, process.env.db_CONTRASE,
     {
@@ -15,8 +16,7 @@ const sequelize = new Sequelize(process.env.db_name, process.env.db_USUARIO, pro
         }
     });
 
-
-    // Create admin table - this is used to manage "pedidos"
+// Create admin table - this is used to manage "pedidos"
 
 const Pro = sequelize.define('admin', {
 
@@ -37,17 +37,8 @@ const Pro = sequelize.define('admin', {
         timezone: '+08:00',
 
         defaultValue: sequelize.literal('CURRENT_TIMESTAMP()')
-        // get() {
-        //     return moment(this.getDataValue('hora')).format('DD/MM/YYYY h:mm:ss');
-        // }
+        
     },
-    //     createdAt: {
-    //         type: DataType.DATE,
-    // //note here this is the guy that you are looking for                   
-    //       get() {
-    //             return moment(this.getDataValue('createdAt')).format('DD/MM/YYYY h:mm:ss');
-    //         }
-    //     },
     descripcion: {
         type: DataTypes.INTEGER(50),
         allowNull: false,
@@ -80,6 +71,7 @@ const Pro = sequelize.define('admin', {
 
 
 // consultas tabla admin
+// try para poder decidir los parametros de la busqueda (hay dos posibles)
 
 async function consultaAdmin(criterioFiltro) {
     console.log(criterioFiltro)
@@ -89,13 +81,9 @@ async function consultaAdmin(criterioFiltro) {
     }catch (error) {
         criterio = {id: criterioFiltro}
     }
-    let objetoCriterio = ""
-    //console.log(Pro.id)
     if (criterioFiltro == "" || null ) {
         const datos = await Pro.findAll({
-            //attributes: arrayAttributosProductos
         })
-        //console.log(datos);
         return datos;
     } else {
         const datos = await Pro.findAll({
@@ -108,17 +96,12 @@ async function consultaAdmin(criterioFiltro) {
 }
 
 //--------
-
-
-
 //--------
 
 
 // agregar un pedido en Admin
 async function agregarPedido(param) {
-    debugger;
     const crear = await Pro.create(param);
-    debugger;
 }
 
 // modificar el estado de un pedido de tabla Admin
@@ -127,25 +110,17 @@ async function modificarEstado(status, id) {
     //[{atributo: modificacion}, {condicion: fieldRequired}]
     //let condicion = param[0];   
     //let atributo = param[1];
-
     const modificar = await Pro.update(
         { estado: status }
         , {
             where: { id: id }
         });
     return modificar
-    //return modificar
 }
 
 module.exports = {
-    //actualizarPedido,
-    // consultarCarrito,
-    //consutltaUsuarios,
     agregarPedido,
     modificarEstado,
     consultaAdmin
-    // modificarUsuarios,
-    // consultarFav,
-    //agregarFav
 }
 

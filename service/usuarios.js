@@ -11,11 +11,11 @@ dotenv.config();
 const sequelize = new Sequelize(process.env.db_name, process.env.db_USUARIO, process.env.db_CONTRASE,
     {
         host: process.env.db_host,
+
         dialect: process.env.db_DIALECT,
+
         port: process.env.db_PORT,
-        // dialectOptions: {
-        //     useUTC: false,
-        // },
+
         timezone: process.env.db_TIMEZONE,
 
         define: {
@@ -89,14 +89,11 @@ let arrayAttributosUsuarios = [
 // Consultamos los usuarios en funcion a los parametros
 
 async function consutltaUsuarios(criterioFiltro) {
-    //console.log("hola2");
-    //console.log('hola');
     
         if (criterioFiltro == "") {
             const datos = await Pro.findAll({
                 attributes: arrayAttributosUsuarios
             })
-            //console.log(datos);
 
             return datos;
         } else {

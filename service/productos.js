@@ -9,9 +9,6 @@ const sequelize = new Sequelize(process.env.db_name, process.env.db_USUARIO, pro
         host: process.env.db_host,
         dialect: process.env.db_DIALECT,
         port: process.env.db_PORT,
-        // dialectOptions: {
-        //     useUTC: false,
-        // },
         timezone: process.env.db_TIMEZONE,
         define: {
             timestamps: false
@@ -61,7 +58,6 @@ async function consutltaProducto(criterioFiltro) {
         const datos = await Pro.findAll({
             attributes: arrayAttributosProductos
         })
-        //console.log(datos);
         return datos;
     } else {
         const datos = await Pro.findAll({
@@ -78,19 +74,16 @@ async function consutltaProducto(criterioFiltro) {
 // Agregar productos segun parametros
 
 async function agregarProducto(param) {
-    debugger;
     const crear = await Pro.create(param);
-    return { msg: 'se creo', crear}
+    return { msg: 'Se creó: ', crear}
 }
 
 // Eliminar parametros segun parametros
 
 async function eliminarProducto(param) {
-    debugger;
     const eliminar = await Pro.destroy({
         where: { nombre: param }
     });
-    debugger;
 }
 
 // Modificar productos segun parametros

@@ -39,7 +39,6 @@ servidor.get('/hola', middlewere.checkJWT, (req, res) => {
 
 // no middlewere.. makes no sense.
 servidor.post('/registrarse', async (req, res) => {
-    console.log("hola");
 
     const user = req.body.user;
     const name = req.body.nombre;
@@ -396,7 +395,7 @@ servidor.post('/carrito', middlewere.checkJWT, async (req, res) => {
             let carrito = JSON.parse(dat2[0].carrito);
             let dire = busquedaDir[0].dataValues.direccion;
             //devolver lo que necesitas
-            res.status(200).json({msg: 'Ok', carrito, dire, pago: formaDePago });
+            res.status(200).json({msg: true, carrito, dire, pago: formaDePago });
         }
     } catch (error) {
         console.error(error);
@@ -496,9 +495,13 @@ servidor.get('/pedido/confirmado', middlewere.checkJWT, async (req, res) => {
 
 servidor.get('/pedido', middlewere.checkJWT, middlewere.middleWereAdmin, async (req, res) => {
     //debugger;
-    
+    try{
     const data = await servicio.consutlaGenerica('administrador', "");
-    return res.json({ msg: 'ok', data });
+    return res.json({ msg: 'Ok', data });
+    } catch (error) {
+        console.error(error);
+        return {msg: 'Not admin'}
+    }
 });
 
 

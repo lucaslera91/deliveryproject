@@ -5,19 +5,17 @@ const { Sequelize, DataTypes } = require('sequelize');
 const productosJS = require('../service/productos');
 const adminJS = require('./admin');
 
-
+// esta es una conexcion con las distintas funciones. Generico --> especifico
 
 // consulta generica
 
 async function consutlaGenerica(tabla, filtro) {
-    debugger;
     let resultado;
     let a = 'a';
     switch (tabla) {
         case 'usuarios': resultado = await usuarioJS.consutltaUsuarios(filtro); break;
         case 'productos': resultado = await productosJS.consutltaProducto(filtro); break;
         case 'administrador': resultado = await adminJS.consultaAdmin(filtro); break;
-        //default: () => { }; break;
         default: () => { a = 'b' }; break;
     }
  

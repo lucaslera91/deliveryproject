@@ -12,6 +12,7 @@
     "mariadb": "^2.4.2",
     "moment": "^2.29.1",
     "mysql2": "^2.2.5",
+    "npm": "^8.1.4",
     "sequelize": "^6.3.5",
     "sequelize-mysql-timestamp": "^1.4.0"
   },

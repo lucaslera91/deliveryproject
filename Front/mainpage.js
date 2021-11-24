@@ -89,6 +89,7 @@ registerButton.addEventListener('click', async (e) => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
+            //                       eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3NzAxMDk4fQ.fLAY5wppuK_ErtFGn2cd_7oogdtK9wfAWq3f2kLaw4w
             //Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3MTc1NTIxfQ.zs23gE2zCmPxGBuzqa1PSwfd7zd4_0wFl3XpJ-trWFQ",
             //Content-Type: "application/json",
         },
