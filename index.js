@@ -391,12 +391,12 @@ servidor.post('/carrito', middlewere.checkJWT, async (req, res) => {
         //console.log(dat2[0].carrito);
             //console.log(dat2[0].usuarios.carrito)
         if (dat2[0].carrito == "" || null) {
-            res.status(200).json({ msg: 'Agrega tu primer item!', dat2 });
+            res.status(200).json({ msg: 'Agrega un pedido nuevo!', dat2 });
         } else {
             let carrito = JSON.parse(dat2[0].carrito);
             let dire = busquedaDir[0].dataValues.direccion;
             //devolver lo que necesitas
-            res.status(200).json({ carrito, dire, pago: formaDePago });
+            res.status(200).json({msg: 'Ok', carrito, dire, pago: formaDePago });
         }
     } catch (error) {
         console.error(error);
@@ -450,7 +450,7 @@ servidor.post('/carrito/pedido', middlewere.checkJWT, async (req, res) => {
     //console.log(data);
     const dir = data[0].direccion;
     // Buscar Usuario
-    const user = data[0].usuario;
+    //const userID = data[0].id;
 
     // Agregaro la orden
     debugger;
@@ -463,7 +463,7 @@ servidor.post('/carrito/pedido', middlewere.checkJWT, async (req, res) => {
         pago: tipoPago,
         monto: monto,
         direccion: dir,
-        usuario: user
+        usuarioID: userID
     })
     // eliminar pedido de BD
     if (dato = ! null) {
@@ -475,13 +475,28 @@ servidor.post('/carrito/pedido', middlewere.checkJWT, async (req, res) => {
 
 });
 
+// Ver los pedidos hechos
+
+servidor.get('/pedido/confirmado', middlewere.checkJWT, async (req, res) => {
+    const codigo = req.headers.authorization;
+    const firma = process.env.jwt_Firma;
+    let pedidoDeUsuario = middlewere.getID(codigo, firma)
+    const data = await servicio.consutlaGenerica('administrador', pedidoDeUsuario);
+
+    return res.json({ msg: 'ok', data });
+});
+
+
+
+
+
 //DELETE FROM `admin` WHERE `estado` like 'creado'
 
 // ADMINISTRADOR MIRA LISTA DE PEDIDOS COMPLETA 
 
 servidor.get('/pedido', middlewere.checkJWT, middlewere.middleWereAdmin, async (req, res) => {
     //debugger;
-
+    
     const data = await servicio.consutlaGenerica('administrador', "");
     return res.json({ msg: 'ok', data });
 });

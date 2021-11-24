@@ -63,7 +63,7 @@ const Pro = sequelize.define('admin', {
         allowNull: false,
         timestamps: false
     },
-    usuario: {
+    usuarioID: {
         type: DataTypes.STRING(400),
         allowNull: false,
         timestamps: false
@@ -83,6 +83,13 @@ const Pro = sequelize.define('admin', {
 
 async function consultaAdmin(criterioFiltro) {
     console.log(criterioFiltro)
+    try{
+        console.log(Object.keys("userID"))
+        criterio = {usuarioID: criterioFiltro}
+    }catch (error) {
+        criterio = {id: criterioFiltro}
+    }
+    let objetoCriterio = ""
     //console.log(Pro.id)
     if (criterioFiltro == "" || null ) {
         const datos = await Pro.findAll({
@@ -93,7 +100,7 @@ async function consultaAdmin(criterioFiltro) {
     } else {
         const datos = await Pro.findAll({
             //where: {nombre: criterioFiltro},
-            where: {id: criterioFiltro},
+            where: criterio,
         });
         console.log(datos)
         return datos;

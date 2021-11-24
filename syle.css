@@ -179,6 +179,8 @@ align-items: center;
     align-items: center;
     justify-content: flex-start;  
     object-fit:cover;  
+    position: relative;
+    top: 50%
 
 }
 #imgBox img{
@@ -187,6 +189,8 @@ align-items: center;
     object-fit: fill;
     border: 1px solid rgb(212, 212, 212, 1);
     border-radius: 8px;
+    position: relative;
+    top: 50%
    
 
 }

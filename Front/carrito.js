@@ -1,14 +1,23 @@
 
-window.onload = carritoShow
+window.onload = function () {
+
+    carritoShow()
+    getPedidos()
+}
+//window.onload = getPedidos
+//window.onload = carritoShow
+
 let pantallaCarrito = document.querySelector('#pantallaCarrito')
 //alert(pantallaCarrito.innerHTML)
 let verResumen = document.querySelector('#resumen')
 let checkOutButton = document.querySelector('#checkOut')
 //alert(verResumen.innerHTML)
 //let reloadPlease = 'n'
+let espacioPedidos = document.querySelector('#pantallaPedidos')
+
 checkOutButton.addEventListener('click', confirmarPedido)
 confirmarPedido
-function test(){
+function test() {
     alert('yay')
 }
 async function carritoShow() {
@@ -27,20 +36,23 @@ async function carritoShow() {
         console.log(data)
         return data
     }).then(function (data) {
-        try{
-        let arrayAux = data.carrito
-        let color = true
-        for (let index = 0; index < arrayAux.length; index++) {
-            const element = arrayAux[index];
-            total += element[0].precio;
-            if (color == true) {
-                backGroudColor = 'rgb(212, 212, 212, 0.1)'
-            } else {
-                backGroudColor = 'rgb(212, 212, 212, 0,4)'
-            }
 
-            pantallaCarrito.innerHTML +=
-                `
+        //alert(data.msg)
+        if (data.msg == 'Ok') {
+
+            let arrayAux = data.carrito
+            let color = true
+            for (let index = 0; index < arrayAux.length; index++) {
+                const element = arrayAux[index];
+                total += element[0].precio;
+                if (color == true) {
+                    backGroudColor = 'rgb(212, 212, 212, 0.1)'
+                } else {
+                    backGroudColor = 'rgb(212, 212, 212, 0,4)'
+                }
+
+                pantallaCarrito.innerHTML +=
+                    `
             
             <div class="col-12" style="background-color: ${backGroudColor};">${element[0].nombre}</div>
             <div class="container" ">
@@ -58,69 +70,29 @@ async function carritoShow() {
                 </div>
             </div>
             `
+                verResumen.innerHTML = `
+         <h4>Resumen</h2>
+         <h5>Total: $${total}</h3>
+         <p>Tipo de pago: ${data.pago}</p>
+         <p>Direccion de entrega: ${data.dire}</p>
+         `
         }
-        /*<div class="imagentProducto"><img src="${element[0].imagen}" alt=""></div>
-        <div>
-            <div class="elementos">
-                ${element[0].descripcion} - $${element[0].precio}
-            </div>
-        </div>*/
+        } else {
+                verResumen.innerHTML = data.msg
+                checkOutButton.style.display = 'none'
+        }
+        }).catch(error => {
 
-        // data.carrito.forEach(element => {
+            console.error(error)
+            console.log('Error en vincular a los servidores')
+            //reloadPlease = prompt('Error en vincular a los servidores - Reload (y/n)?')
+            //verResumen.innerHTML = 'Check server conection'
+            //alert('something is not ok')
 
-        //     //<p>${Object.keys(element.nombre)}</p>
-        //     pantallaProducto.innerHTML +=
-        //         `
-        //         <p>${(element[0].nombre)}</p>
-        //         <p>${(data.pago)}</p>
-        //         <p>${(data.dire)}</p>
+            location.reload();
+            verResumen.innerHTML = `Check server conection`
 
-        //         <div class="titulo"><h3>${element.nombre}</h3></div>
-        //         <div class="imagentProducto"><img src="${element.imagen}" alt=""></div>
-        //         <div>
-        //             <div class="elementos">
-        //                 ${element.descripcion} - $${element.precio}
-        //             </div>
-        //         </div>
-        //         <div>
-        //             <button class="addToCartButton" onclick="addToCart(this.id)" id="${element.nombre}">Add to cart</button>
-        //         </div>`
-    }catch (error) {
-        console.error(error);
-        // expected output: ReferenceError: nonExistentFunction is not defined
-        // Note - error messages will vary depending on browser
-        aux = data.msg
-        return aux
-    
-    }
-        return (data)
-    }).then(function (data) {
-       console.log(data)
-       //alert(data)
-       if (total){
-        verResumen.innerHTML = `
-            <h4>Resumen</h2>
-            <h5>Total: $${total}</h3>
-            <p>Tipo de pago: ${(data.pago)}</p>
-            <p>Direccion de entrega: ${(data.dire)}</p>
-            `
-       }else{
-
-        verResumen.innerHTML = `<h2 id='primerItem'>${data}</h2>`
-        checkOutButton.style.display = 'none'
-       }
-        
-    }).catch(error => {
-        console.error(error)
-        console.log('Error en vincular a los servidores')
-        //reloadPlease = prompt('Error en vincular a los servidores - Reload (y/n)?')
-        //verResumen.innerHTML = 'Check server conection'
-        //alert('something is not ok')
-        
-        location.reload();
-        verResumen.innerHTML = `Check server conection`
-
-    });
+        });
 };
 
 /// remove button
@@ -161,7 +133,7 @@ async function removeFromCart(id) {
 //carrito/pedido
 
 async function confirmarPedido() {
-    let tipoDePago = {pago:'Efectivo'}
+    let tipoDePago = { pago: 'Efectivo' }
     fetch(`http://localhost:3000/carrito/pedido`, {
         method: "POST",
         headers: {
@@ -177,7 +149,7 @@ async function confirmarPedido() {
         //alert(data)
         return data
     }).then(function () {
-        window.location.href="../homePage.html"
+        window.location.href = "../homePage.html"
         //location.reload();
 
     }).catch(error => {
@@ -187,6 +159,65 @@ async function confirmarPedido() {
 
     })
 };
+
+// get listado de pedidos
+
+async function getPedidos() {
+
+
+    fetch(`http://localhost:3000/pedido/confirmado`, {
+        method: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3MTc1NTIxfQ.zs23gE2zCmPxGBuzqa1PSwfd7zd4_0wFl3XpJ-trWFQ"
+            //Content-Type: "application/json",
+        }
+    }).then(function (rawResponse) {
+        //alert('ehy2')
+        const data = rawResponse.json();
+        //alert(data)
+        return data
+    }).then(function (data) {
+        console.log(data)
+        espacioPedidos.innerHTML += `
+        <h4 style="border-top: 1px dotted white;">Pedidos historicos:</h2>
+        `
+        data.data.forEach(element => {
+
+            if (element.estado == 'Anulado' || element.estado == 'Entregado') {
+                espacioPedidos.innerHTML += `
+            <h5 style="border-bottom: 2px dotted white;">ID de pedido: ${element.id} - Monto: $${element.monto} - Estado: ${element.estado}</h5>
+        `
+            } else {
+                espacioPedidos.innerHTML += `
+            <h5>ID de pedido: ${element.id} - Monto: $${element.monto} - Estado: ${element.estado}</h5>
+            <button type="button" class="btn btn-light" id="${element.id}" onclick="anularPedido(this.id)">Anular</button>
+            `
+            }
+
+        });
+
+        //location.reload();
+
+    }).catch(error => {
+        console.error(error)
+        //alert('Sin conexion a servidores')
+        espacioPedidos.innerHTML = 'Check server conection'
+        location.reload();
+
+    })
+};
+
+// anular pedido
+
+
+function anularPedido(id) {
+    let anularButton = document.getElementById(id)
+    anularButton.innerHTML = 'Anulado'
+    alert('Se solicito la anulacion!')
+    anularButton.style.backgroundColor = 'grey'
+}
 
 
 
@@ -198,7 +229,7 @@ catch (error) {
     console.error(error);
     // expected output: ReferenceError: nonExistentFunction is not defined
     // Note - error messages will vary depending on browser
-    verResumen.innerHTML = 'Check server conection'
+    //verResumen.innerHTML = 'Check server conection'
 
 }
 
