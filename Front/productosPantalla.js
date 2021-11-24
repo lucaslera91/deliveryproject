@@ -32,10 +32,10 @@ async function productShow() {
             pantallaProducto.innerHTML +=
             `
             <div class="col-12" style="background-color: ${backGroudColor};">${element.nombre}</div>
-            <div class="container" ">
+            <div class="container">
             <div class="row" id="box2" >
                 <div class="col-5" id="imgBox"><img src="${element.imagen}" alt=""></div>
-                <div class="col-7"  style="background-color: ${backGroudColor}; line-height: 1.8;">
+                <div class="col-7" style="background-color: ${backGroudColor}; line-height: 1.8;">
                     <div class="row" id="box3">
                     <div class="col-12" id="descriptionBox" >${element.descripcion}</div>
                         <div class="col-6"  id="priceTag">$ ${element.precio}</div>

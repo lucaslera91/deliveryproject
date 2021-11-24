@@ -389,8 +389,8 @@ servidor.post('/carrito', middlewere.checkJWT, async (req, res) => {
         let busquedaDir = await servicio.consutlaGenerica('usuarios', idUsuario);
         //console.log(busquedaDir[0].dataValues.direccion);
         //console.log(dat2[0].carrito);
-
-        if (dat2 == "" || null) {
+            //console.log(dat2[0].usuarios.carrito)
+        if (dat2[0].carrito == "" || null) {
             res.status(200).json({ msg: 'Agrega tu primer item!', dat2 });
         } else {
             let carrito = JSON.parse(dat2[0].carrito);

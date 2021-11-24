@@ -13,7 +13,7 @@ function test(){
 }
 async function carritoShow() {
     let total = 0
-  
+    let aux = ""
     fetch(`http://localhost:3000/carrito`, {
         method: "POST",
         headers: {
@@ -27,6 +27,7 @@ async function carritoShow() {
         console.log(data)
         return data
     }).then(function (data) {
+        try{
         let arrayAux = data.carrito
         let color = true
         for (let index = 0; index < arrayAux.length; index++) {
@@ -84,23 +85,39 @@ async function carritoShow() {
         //         <div>
         //             <button class="addToCartButton" onclick="addToCart(this.id)" id="${element.nombre}">Add to cart</button>
         //         </div>`
+    }catch (error) {
+        console.error(error);
+        // expected output: ReferenceError: nonExistentFunction is not defined
+        // Note - error messages will vary depending on browser
+        aux = data.msg
+        return aux
+    
+    }
         return (data)
     }).then(function (data) {
-
+       console.log(data)
+       //alert(data)
+       if (total){
         verResumen.innerHTML = `
             <h4>Resumen</h2>
             <h5>Total: $${total}</h3>
             <p>Tipo de pago: ${(data.pago)}</p>
             <p>Direccion de entrega: ${(data.dire)}</p>
             `
+       }else{
 
+        verResumen.innerHTML = `<h2>${data}</h2>`
+        checkOutButton.style.display = 'none'
+       }
+        
     }).catch(error => {
         console.error(error)
         console.log('Error en vincular a los servidores')
         //reloadPlease = prompt('Error en vincular a los servidores - Reload (y/n)?')
         //verResumen.innerHTML = 'Check server conection'
         //alert('something is not ok')
-        //location.reload();
+        
+        location.reload();
         verResumen.innerHTML = `Check server conection`
 
     });
@@ -144,7 +161,6 @@ async function removeFromCart(id) {
 //carrito/pedido
 
 async function confirmarPedido() {
-    alert()
     let tipoDePago = {pago:'Efectivo'}
     fetch(`http://localhost:3000/carrito/pedido`, {
         method: "POST",
