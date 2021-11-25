@@ -33,7 +33,7 @@ async function carritoShow() {
             for (let index = 0; index < arrayAux.length; index++) {
                 const element = arrayAux[index];
                 total += element[0].precio;
-                color ? backGroudColor = 'rgb(212, 212, 212, 0.3)' : backGroudColor = 'rgb(212, 212, 212, 0,7)'
+                color ? backGroudColor = 'rgb(212, 212, 212, 0.3)' : backGroudColor = 'rgb(212, 212, 212, 0,7)';
                 // if (color) {
                 //     backGroudColor = 'rgb(212, 212, 212, 0.1)'
                 // } else {
@@ -193,7 +193,7 @@ function chekAdminToken(){
        const data = raw.json();
        return data
     }).then(function (data) {
-        data.msg != 'Ok' ? lineaPedidosAdmin.style.display = 'none': next();
+        data.msg != 'Ok' ? lineaPedidosAdmin.style.display = 'none': "";
     
     }).catch(error => {
         console.error(error)
