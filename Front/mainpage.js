@@ -25,52 +25,36 @@ try {
     // Note - error messages will vary depending on browser
 }
 
-///
-
-
-
-///
-// Get productos prueba.
-
-
-
 // Evento para el log in. Guarda token en local storage.
 
 submitLogin.addEventListener('click', async (e) => {
     e.preventDefault()
-    
     let lookUp = { usuario: user.value, contrasena: contrasena.value }
-    
     fetch(`http://localhost:3000/login`, {
         method: "POST",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
             //Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3MTc1NTIxfQ.zs23gE2zCmPxGBuzqa1PSwfd7zd4_0wFl3XpJ-trWFQ",
-            //Content-Type: "application/json",
         },
         body: JSON.stringify(lookUp)
     }).then(function (rawResponse) {
-        //alert('ehy2')
-        console.log(rawResponse)
         const data = rawResponse.json();
-        console.log(data)
         return data
     }).then(function (data) {
-        //alert(Object.keys(data.msg[2]));
         localStorage.setItem('token', (data.token || data.msg))
-        if (data.token){
-            window.location.href="../homePage.html"
-        }else{
+        if (data.token) {
+            window.location.href = "../homePage.html"
+        } else {
             alert(data.msg)
         }
     })
-    .catch (error => {
-    console.error(error)
-    alert('Sin conexion a servidores')
-    })
-    });
-//chang
+        .catch(error => {
+            console.error(error)
+            alert('Sin conexion a servidores')
+        })
+});
+
 // Evento para registrarse. 
 
 registerButton.addEventListener('click', async (e) => {
@@ -83,33 +67,22 @@ registerButton.addEventListener('click', async (e) => {
         contrasena: registerPassword.value,
         correo: registerCorreo.value
     }
-    //alert('works')
     fetch(`http://localhost:3000/registrarse`, {
         method: "POST",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-            //                       eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3NzAxMDk4fQ.fLAY5wppuK_ErtFGn2cd_7oogdtK9wfAWq3f2kLaw4w
+            //Otro usuarui:  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3NzAxMDk4fQ.fLAY5wppuK_ErtFGn2cd_7oogdtK9wfAWq3f2kLaw4w
             //Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsInJvbCI6ImFkbWluIiwiaWF0IjoxNjM3MTc1NTIxfQ.zs23gE2zCmPxGBuzqa1PSwfd7zd4_0wFl3XpJ-trWFQ",
-            //Content-Type: "application/json",
         },
         body: JSON.stringify(registerInfo)
     }).then(function (rawResponse) {
-        //alert('ehy2')
-        console.log(rawResponse)
         const data = rawResponse.json();
-        console.log(data)
         return data
     }).then(function (data) {
-       // alert(data.msg)
-        if(data.msg === 'Register correct'){
-            alert('wordks')
-            window.location.href="../index.html"
+        if (data.msg === 'Register correct') {
+            window.location.href = "../index.html"
         }
     });
 });
-
-// get page with products
-
-
 

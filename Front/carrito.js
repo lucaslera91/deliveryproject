@@ -1,6 +1,5 @@
 // import {getTokenFunction} from '../Front/functions'
 
-//const { getToken } = require("./functions")
 let lineaPedidosAdmin = document.querySelector('#listaPedidosAdmin')
 
 window.onload = function () {
@@ -14,24 +13,18 @@ let verResumen = document.querySelector('#resumen')
 let checkOutButton = document.querySelector('#checkOut')
 let espacioPedidos = document.querySelector('#pantallaPedidos')
 
-// let tokenData = getTokenFunction()
-// alert(tokenData)
 checkOutButton.addEventListener('click', confirmarPedido)
 
 async function carritoShow() {
     let total = 0
     let aux = ""
-    //alert(token)
     fetch(`http://localhost:3000/carrito`, {
         method: "POST",
         headers: {
             Authorization: "Bearer " + localStorage.getItem('token'),
-            //Content-Type: "application/json",
         }
     }).then(function (rawResponse) {
-        console.log(rawResponse)
         const data = rawResponse.json();
-        console.log(data)
         return data
     }).then(function (data) {
         if (data.msg == true) {
@@ -40,9 +33,7 @@ async function carritoShow() {
             for (let index = 0; index < arrayAux.length; index++) {
                 const element = arrayAux[index];
                 total += element[0].precio;
-
                 color ? backGroudColor = 'rgb(212, 212, 212, 0.3)' : backGroudColor = 'rgb(212, 212, 212, 0,7)'
-
                 // if (color) {
                 //     backGroudColor = 'rgb(212, 212, 212, 0.1)'
                 // } else {
@@ -98,22 +89,16 @@ async function removeFromCart(id) {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             Authorization: "Bearer " + localStorage.getItem('token')
-            //Content-Type: "application/json",
         },
         body: JSON.stringify(idProducto)
     }).then(function (rawResponse) {
         const data = rawResponse.json();
         return data
     }).then(function (data) {
-        //localStorage.setItem('token', (data.token || data.msg))
-        //alert(data.nom)
-    }).then(function () {
         location.reload();
-
     }).catch(error => {
         console.error(error)
         verResumen.innerHTML = 'Check server conection'
-
     })
 };
 
@@ -203,22 +188,15 @@ function chekAdminToken(){
         method: "GET",
         headers: {
             Authorization: "Bearer " + localStorage.getItem('token')
-            //Content-Type: "application/json",
         }
     }).then(function (raw) {
        const data = raw.json();
        return data
     }).then(function (data) {
-        //( data.msg == 'Ok') ? alert(ok) : alert('not ok')
-        if (data.msg == 'Ok'){
-            //alert('Done')
-        }else{
-            (lineaPedidosAdmin.style.display = 'none')
-        }
+        data.msg != 'Ok' ? lineaPedidosAdmin.style.display = 'none': next();
+    
     }).catch(error => {
         console.error(error)
-        //alert('wtf')
-        //lineaPedidosAdmin.style.display = 'none'
         location.reload();
         console.log('No es admin')
     });
