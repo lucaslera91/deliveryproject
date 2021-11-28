@@ -20,7 +20,7 @@ function chekAdminToken(){
        return data
     }).then(function (data) {
         //( data.msg == 'Ok') ? alert(ok) : alert('not ok')
-        data.msg != 'Ok' ? lineaPedidosAdmin.style.display = 'none' : next()
+        data.msg != 'Ok' ? lineaPedidosAdmin.style.display = 'none' : "next()";
         // if (data.msg == 'Ok'){
         //     //alert('Done')
         // }else{
@@ -45,7 +45,7 @@ async function productShow() {
         return data
     }).then(function (data) {
         //let color = true
-        const backGroudColor = 'rgb(212, 212, 212, 0.3)'
+        const backGroudColor = 'rgb(212, 212, 212, 0.3)';
 
         data.dat.forEach(element => {
             
