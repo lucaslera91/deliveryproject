@@ -201,7 +201,16 @@ align-items: center;
     align-items: center;
     justify-content: center;
 }
-
+footer{
+    position: relative;
+    height: 5vh;
+    width: 100%;
+    bottom: 0%;
+    border: 1px solid rgb(212, 212, 212, 1);;
+}
+.auxFooter{
+    margin-bottom: 5vh;
+}
 .animated-icon1, .animated-icon2, .animated-icon3 {
 width: 30px;
 height: 20px;

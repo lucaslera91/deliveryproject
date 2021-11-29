@@ -3,7 +3,7 @@ let tituloProducto = document.querySelector('.titulo')
 let pantallaProducto = document.querySelector('#productScreen')
 let lineaPedidosAdmin = document.querySelector('#listaPedidosAdmin')
 lineaPedidosAdmin.style.display = 'flex'
-
+let footer = document.getElementById('auxFooter')
 let addToCartButton = 'realy'
 
 
@@ -47,8 +47,12 @@ async function muestraProductos(){
                     </div>
                 
                 </div>
-            </div>`
+            </div>
+            `
         });
+        footer.style.position = 'absolute'
+        footer.style.bottom = 0
+
     } catch(e)     {
             console.log('Error');
             console.log(e)
