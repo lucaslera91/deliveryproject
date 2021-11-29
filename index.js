@@ -325,7 +325,7 @@ servidor.put('/productos/removeCarrito', middlewere.checkJWT, async (req, res) =
 
 // Ver listado de carrito, se valida usuario (donde se saca el dato)
 
-servidor.post('/carrito', middlewere.checkJWT, async (req, res) => {
+servidor.get('/carrito', middlewere.checkJWT, async (req, res) => {
     debugger;
     try {
         const codigo = req.headers.authorization;
@@ -466,6 +466,25 @@ servidor.post('/pedido/estado', middlewere.checkJWT, middlewere.middleWereAdmin,
             return res.status(200).json({ msg: 'Pedido Actualizado' });
         }
     }
+});
+
+// Revisar si el usuario es Administrador 
+
+servidor.get('/userCheck', middlewere.checkJWT, middlewere.middleWereAdmin, async (req, res) => {
+    const codigo = req.headers.authorization;
+    const firma = process.env.jwt_Firma;
+    const rol = middlewere.getRol(codigo, firma);
+
+    if(rol){
+        if (rol == 'admin') {
+            return res.status(200).json({ msg: true })
+        } else{
+            return res.status(200).json({ msg: false })
+        };
+    } else{
+        return res.status(500).json({ msg: '404 - Error en los datos' });
+    }
+
 });
 
 

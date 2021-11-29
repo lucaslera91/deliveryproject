@@ -1,47 +1,38 @@
-window.onload = pedidosShow
+
+
 let pedidosTabla = document.querySelector('#pedidosContainer')
+// Opciones para el adeministrador en los estados
 let elmts = ["Creado", "En curso", "Pendiente", "Entregada", "Anulada"];
-function GFG_Fun(valueEstado, id) {
+pedidosShow()
 
+
+
+//Modificar el Estado del Pedido
+
+async function GFG_Fun(valueEstado, id) {
   let auxEstado = { estado: valueEstado, idPed: id }
+  try {
+    let data = await myFetch("/pedido/estado", "POST", auxEstado)
+    console.log(data)
 
-  fetch(`http://localhost:3000/pedido/estado`, {
-    method: "POST",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: "Bearer " + localStorage.getItem('token')
-    },
-    body: JSON.stringify(auxEstado)
-  }).then(function (rawResponse) {
-    const data = rawResponse.json();
-    return data
-  }).catch(error => {
-    console.error(error)
-    console.log('Error en vincular a los servidores - cargando productos..')
-    //location.reload();
-  });
-};
+  } catch (e) {
+    console.log("Error en el fetch")
+    console.log(e)
+  }
+}
 
 async function pedidosShow() {
   pedidosTabla.innerHTML = ""
-  fetch(`http://localhost:3000/pedido`, {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem('token')
-    }
-  }).then(function (rawResponse) {
-    const data = rawResponse.json();
-    return data
-  }).then(function (data) {
-    let values = "";
+  let data = await myFetch("/pedido", "GET")
+  console.log(data)
+  try {
     let color = true
     let aux = data.data
     aux.forEach(element => {
 
       color ? backGroudColor = 'rgb(212, 212, 212, 0.3)' : backGroudColor = 'rgb(212, 212, 212, 0,7)'
 
-      values = Object.values(element);
+      let values = Object.values(element);
       for (let index = 0; index < values.length; index++) {
         const element2 = values[index];
         if (index == 2) {
@@ -52,24 +43,24 @@ async function pedidosShow() {
           }
           date = date.toLocaleTimeString("en-ar", options)
           pedidosTabla.innerHTML += ` 
-                    <div class="col-3" style="background-color:${backGroudColor}">
-                                ${date}
-                    </div>`
+                     <div class="col-3" style="background-color:${backGroudColor}">
+                                 ${date}
+                     </div>`
         } else if (index == 1) {
           pedidosTabla.innerHTML += ` 
-          <div class="col-3" style="background-color: ${backGroudColor}">
-          <select id="estado${element.id}" onchange="GFG_Fun(this.value, ${element.id})">
-            <option disabled selected>${element.estado}</option>
-            <option value="Creado">Creado</option>
-            <option value="En curso">En curso</option>
-            <option value="Entregada">Entregada</option>
-            <option value="Anulada">Anulada</option>
-          </select>
-          </div>`
+            <div class="col-3" style="background-color: ${backGroudColor}">
+              <select id="estado${element.id}" onchange="GFG_Fun(this.value, ${element.id})">
+                <option disabled selected>${element.estado}</option>
+                <option value="Creado">Creado</option>
+                <option value="En curso">En curso</option>
+                <option value="Entregada">Entregada</option>
+                <option value="Anulada">Anulada</option>
+              </select>
+            </div>`
         } else {
           pedidosTabla.innerHTML += ` 
             <div class="col-3" style="background-color: ${backGroudColor}">
-              ${element2}
+               ${element2}
             </div>`
         }
       }
@@ -77,13 +68,15 @@ async function pedidosShow() {
       pedidosTabla.innerHTML += `<div class="w-100"></div>`
     })
     pedidosTabla.innerHTML += `</div>`
-  }).then(function () {
+  } catch (e) {
+    console.log("Error")
+    console.log(e)
+  }
+}
 
 
-  }).catch(error => {
-    console.error(error)
-    console.log('Error en vincular a los servidores - cargando productos..')
-    location.reload();
 
-  });
-};
+
+
+
+

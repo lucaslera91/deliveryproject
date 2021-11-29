@@ -1,45 +1,40 @@
-// import {getTokenFunction} from '../Front/functions'
-
 let lineaPedidosAdmin = document.querySelector('#listaPedidosAdmin')
-
-window.onload = function () {
-    carritoShow()
-    getPedidos()
-    chekAdminToken()
-}
-
 let pantallaCarrito = document.querySelector('#pantallaCarrito')
 let verResumen = document.querySelector('#resumen')
 let checkOutButton = document.querySelector('#checkOut')
 let espacioPedidos = document.querySelector('#pantallaPedidos')
+lineaPedidosAdmin.style.display = 'flex'
+
+
+carritoShow()
+getPedidos()
+menuList()
 
 checkOutButton.addEventListener('click', confirmarPedido)
-
-async function carritoShow() {
+async function menuList(){
+    const isAdmin = await chekAdminToken()
+    if (!isAdmin){
+        lineaPedidosAdmin.style.display = 'none'
+    } else{
+        console.log(chekAdminToken())
+        console.log(isAdmin)
+    }
+}
+async function carritoShow(){
     let total = 0
-    let aux = ""
-    fetch(`http://localhost:3000/carrito`, {
-        method: "POST",
-        headers: {
-            Authorization: "Bearer " + localStorage.getItem('token'),
-        }
-    }).then(function (rawResponse) {
-        const data = rawResponse.json();
-        return data
-    }).then(function (data) {
+    let arrayAux = []
+    let data = await myFetch("/carrito", "GET")
+    console.log(data)
+    try{
         if (data.msg == true) {
-            let arrayAux = data.carrito
+            arrayAux = data.carrito
             let color = true
-            for (let index = 0; index < arrayAux.length; index++) {
+            //por la forma de los datos debo hacer un for each
+            for (let index = 0; index < arrayAux.length; index++) { 
                 const element = arrayAux[index];
                 total += element[0].precio;
                 color ? backGroudColor = 'rgb(212, 212, 212, 0.3)' : backGroudColor = 'rgb(212, 212, 212, 0,7)';
-                // if (color) {
-                //     backGroudColor = 'rgb(212, 212, 212, 0.1)'
-                // } else {
-                //     backGroudColor = 'rgb(212, 212, 212, 0,4)'
-                // }
-
+          
                 pantallaCarrito.innerHTML +=`
                     <div class="col-12" style="background-color: ${backGroudColor};">${element[0].nombre}</div>
                     <div class="container">
@@ -69,80 +64,35 @@ async function carritoShow() {
             verResumen.innerHTML = data.msg
             checkOutButton.style.display = 'none'
         }
-    }).catch(error => {
 
-        console.error(error)
-        console.log('Error en vincular a los servidores')
-        location.reload();
-        verResumen.innerHTML = `Check server conection`
+    }catch(e){
+        console.log("Error en el Show")
+        console.log(e)
+        //location.reload()
+    };
+}
 
-    });
-};
 
-/// remove button
-
-async function removeFromCart(id) {
+async function removeFromCart(id){
     let idProducto = { nombre: id }
-    fetch(`http://localhost:3000/productos/removeCarrito`, {
-        method: "PUT",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: "Bearer " + localStorage.getItem('token')
-        },
-        body: JSON.stringify(idProducto)
-    }).then(function (rawResponse) {
-        const data = rawResponse.json();
-        return data
-    }).then(function (data) {
-        location.reload();
-    }).catch(error => {
-        console.error(error)
-        verResumen.innerHTML = 'Check server conection'
-    })
-};
+    let data = await myFetch("/removeCarrito", "PUT", idProducto)
+    console.log(data)
+}
 
-// confirmar pedido
-//carrito/pedido
 
-async function confirmarPedido() {
+async function confirmarPedido(){
     let tipoDePago = { pago: 'Efectivo' }
-    fetch(`http://localhost:3000/carrito/pedido`, {
-        method: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: "Bearer " + localStorage.getItem('token')
-            //Content-Type: "application/json",
-        },
-        body: JSON.stringify(tipoDePago)
-    }).then(function (rawResponse) {
-        const data = rawResponse.json();
-        return data
-    }).then(function () {
-        window.location.href = "../homePage.html"
-    }).catch(error => {
-        console.error(error)
-        verResumen.innerHTML = 'Check server conection'
-    })
-};
+    let data = await myFetch("/carrito/pedido", "POST", tipoDePago)
+    console.log(data)
+    window.location.href = "../homePage.html"
+}
 
-// get listado de pedidos
 
-async function getPedidos() {
+async function getPedidos(){
 
-    fetch(`http://localhost:3000/pedido/confirmado`, {
-        method: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: "Bearer " + localStorage.getItem('token')
-            //Content-Type: "application/json",
-        }
-    }).then(function (rawResponse) {
-        const data = rawResponse.json();
-        return data
-    }).then(function (data) {
+    let data = await myFetch("/pedido/confirmado", "GET")
+    console.log(data)
+    try{
         espacioPedidos.innerHTML += `
             <h4 style="border-top: 1px dotted white;">Pedidos historicos:</h2>
         `
@@ -160,20 +110,12 @@ async function getPedidos() {
             }
 
         });
+    }catch(e){
+        console.log('Error')
+        console.log(e)
+    }
 
-        //location.reload();
-
-    }).catch(error => {
-        console.error(error)
-        //alert('Sin conexion a servidores')
-        espacioPedidos.innerHTML = 'Check server conection'
-        location.reload();
-
-    })
-};
-
-// anular pedido
-
+}
 
 function anularPedido(id) {
     let anularButton = document.getElementById(id)
@@ -183,33 +125,5 @@ function anularPedido(id) {
 }
 
 
-function chekAdminToken(){
-    fetch(`http://localhost:3000/pedido`, {
-        method: "GET",
-        headers: {
-            Authorization: "Bearer " + localStorage.getItem('token')
-        }
-    }).then(function (raw) {
-       const data = raw.json();
-       return data
-    }).then(function (data) {
-        data.msg != 'Ok' ? lineaPedidosAdmin.style.display = 'none': "";
-    
-    }).catch(error => {
-        console.error(error)
-        location.reload();
-        console.log('No es admin')
-    });
-}
 
-try {
-
-}
-catch (error) {
-    console.error(error);
-    // expected output: ReferenceError: nonExistentFunction is not defined
-    // Note - error messages will vary depending on browser
-    //verResumen.innerHTML = 'Check server conection'
-
-}
 

@@ -5,51 +5,32 @@ let lineaPedidosAdmin = document.querySelector('#listaPedidosAdmin')
 lineaPedidosAdmin.style.display = 'flex'
 
 let addToCartButton = 'realy'
-window.onload = function() {
-    productShow()
-    chekAdminToken()
-}
-function chekAdminToken(){
-    fetch(`http://localhost:3000/pedido`, {
-        method: "GET",
-        headers: {
-            Authorization: "Bearer " + localStorage.getItem('token')
-        }
-    }).then(function (raw) {
-       const data = raw.json();
-       return data
-    }).then(function (data) {
-        //( data.msg == 'Ok') ? alert(ok) : alert('not ok')
-        data.msg != 'Ok' ? lineaPedidosAdmin.style.display = 'none' : "next()";
-        // if (data.msg == 'Ok'){
-        //     //alert('Done')
-        // }else{
-        //     (lineaPedidosAdmin.style.display = 'none')
-        // }
-    }).catch(error => {
-        console.error(error)
-        location.reload();
-        console.log('No es admin')
-    });
-}
 
 
-async function productShow() {
-    fetch(`http://localhost:3000/productos`, {
-        method: "GET",
-        headers: {
-            Authorization: "Bearer " + localStorage.getItem('token')
-        }
-    }).then(function (rawResponse) {
-        const data = rawResponse.json();
-        return data
-    }).then(function (data) {
-        //let color = true
+chekAdminToken();
+muestraProductos();
+menuList();
+
+
+
+// modificar listado si no es admin
+async function menuList(){
+    const isAdmin = await chekAdminToken()
+    if (!isAdmin){
+        lineaPedidosAdmin.style.display = 'none'
+    } else{
+        console.log(chekAdminToken())
+        console.log(isAdmin)
+    }
+}
+
+async function muestraProductos(){
+    let data = await myFetch("/productos","GET")
+    console.log(data)
+    try{
         const backGroudColor = 'rgb(212, 212, 212, 0.3)';
 
         data.dat.forEach(element => {
-            
-          
             pantallaProducto.innerHTML +=
             `
             <div class="col-12" style="background-color: ${backGroudColor};">${element.nombre}</div>
@@ -67,40 +48,25 @@ async function productShow() {
                 
                 </div>
             </div>`
+        });
+    } catch(e)     {
+            console.log('Error');
+            console.log(e)
+        }
+    }
 
-            //color = color
-        })
-    }).catch(error => {
-        console.error(error)
-        location.reload();
-        console.log('Error en vincular a los servidores - cargando productos..')
-    });
-};
 
-//addToCartButton.addEvent
 //addToCart()
-
-async function addToCart(id) {
+async function addToCart(id){
     let idProducto = { nombre: id }
-    fetch(`http://localhost:3000/productos/addCarrito`, {
-        method: "PUT",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: "Bearer " + localStorage.getItem('token')
-        },
-        body: JSON.stringify(idProducto)
-    }).then(function (rawResponse) {
-        const data = rawResponse.json();
-        return data
-    }).then(function (data) {
+    let data = await myFetch("/productos/addCarrito", "PUT", idProducto)
+    console.log(data)
+    try{
         alert(data.msg)
-    }).catch(error => {
-        console.error(error)
-        alert('Sin conexion a servidores')
-    })
-};
+    } catch(e){
+        console.log('Error en Button');
+        console.log(e)
+    }
 
-
-
+}
 

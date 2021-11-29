@@ -16,14 +16,6 @@ let registerCorreo = document.querySelector('#correoRegister')
 let registerDireccion = document.querySelector('#direccionRegister')
 let registerTelefono = document.querySelector('#telefonoRegister')
 
-//
-try {
-    // nonExistentFunction();
-} catch (error) {
-    console.error(error);
-    // expected output: ReferenceError: nonExistentFunction is not defined
-    // Note - error messages will vary depending on browser
-}
 
 // Evento para el log in. Guarda token en local storage.
 
