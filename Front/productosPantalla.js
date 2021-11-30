@@ -11,8 +11,6 @@ chekAdminToken();
 muestraProductos();
 menuList();
 
-
-
 // modificar listado si no es admin
 async function menuList(){
     const isAdmin = await chekAdminToken()

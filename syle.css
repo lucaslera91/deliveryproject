@@ -43,7 +43,7 @@ button{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(212, 212, 212, 1);
+    background-color: rgba(161, 150, 150);
 }
 
 #productScreen{
@@ -211,6 +211,7 @@ footer{
 .auxFooter{
     margin-bottom: 5vh;
 }
+
 .animated-icon1, .animated-icon2, .animated-icon3 {
 width: 30px;
 height: 20px;
