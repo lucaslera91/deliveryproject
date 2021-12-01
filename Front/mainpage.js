@@ -16,11 +16,48 @@ let registerCorreo = document.querySelector('#correoRegister')
 let registerDireccion = document.querySelector('#direccionRegister')
 let registerTelefono = document.querySelector('#telefonoRegister')
 
+// Validamos los datos en el registro (que esten completos al menos)
+
+
+function validarContenido(slot, validar){
+    let ok = true
+    if (validar == ""){
+        return alert("Debe completar el campo " + slot)
+    }
+    return ok 
+}
+
+function validarLogIn(){
+    if(validarContenido('User', user.value) &&
+    validarContenido('Password', contrasena.value))
+    {
+        return true
+    } else {
+        return false
+    }
+
+}
+
+function validarRegistro(){
+    if(validarContenido('User', registerUser.value) &&
+    validarContenido('Password', registerPassword.value) &&
+    validarContenido('Nombre', registerNombre.value) && 
+    validarContenido('Corre', registerCorreo.value) && 
+    validarContenido('Direccion', registerDireccion.value ) && 
+    validarContenido('Telefono', registerTelefono.value)
+    ){
+        return true
+    }else{
+        return false
+    }
+}
 
 // Evento para el log in. Guarda token en local storage.
 
 submitLogin.addEventListener('click', async (e) => {
-    e.preventDefault()
+
+    if(validarLogIn()){
+        e.preventDefault()
     let lookUp = { usuario: user.value, contrasena: contrasena.value }
     fetch(`http://localhost:3000/login`, {
         method: "POST",
@@ -45,13 +82,18 @@ submitLogin.addEventListener('click', async (e) => {
             console.error(error)
             alert('Sin conexion a servidores')
         })
+    }
+
+    
 });
 
 // Evento para registrarse. 
 
 registerButton.addEventListener('click', async (e) => {
-    e.preventDefault()
-    let registerInfo = {
+
+    if (validarRegistro()){
+        e.preventDefault()
+        let registerInfo = {
         user: registerUser.value,
         nombre: registerNombre.value,
         tel: registerTelefono.value,
@@ -76,5 +118,7 @@ registerButton.addEventListener('click', async (e) => {
             window.location.href = "../index.html"
         }
     });
+    }
+    
 });
 
