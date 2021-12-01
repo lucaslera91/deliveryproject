@@ -34,16 +34,9 @@ Primero instalar en nmp todos los paquetes: npm install
 Para ejecutar: node index
 
 Checklist:
-1 - este es el formato utilizado para tomar los valores de input:
-
-2 -
-
 
 3 - La creacion de pedido se genera al agregar pedidos al carrito, luego desde el carrito se confirma la compra.
 
-        - Este seria el formato para agregar al carrito:
-        
-        - Este seria el formato para agregar confirmar la compra:
 4 - El usuario seria el unico que tiene la posibilidad de modificar, este es el formato y las opciones:
 
 5 - El administrador puede hacer CRUD con las siguientes acciones:
@@ -52,13 +45,12 @@ Checklist:
     - Update
     - Delete
 
-    Tienen distintos end points porque seria mas facil a nivel practico (entiendo que eso no es un problmea). El concepto es que el admin modifique el listado.
+El concepto es que el admin modifique el listado de pedidos.
 
-6 - En mi logica el display de la pagina no existiria si el usuario no tuviese el campo de "Admin"
-    - de cualquier modo hay un middlewere para ese escenario.
+6 - solo el administrador puede ver el listado de pedidos.
 
+user Admin: lucas
+user password: 123456
 
-ojala este lo mas claro posible!
-
-saludos y muchas gracias!
+Esta la importacion de la base de datos
 
