@@ -1,5 +1,6 @@
 Instrucciones:
 
+Se debe importar la base de datos a phpmyadmin - delilah_proyecto3
 Datos a Completar
 
 Ingresar al servidor:
