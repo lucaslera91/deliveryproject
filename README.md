@@ -9,7 +9,7 @@ Local host: http://localhost:8080/phpmyadmin/
 
 Completar en archivo .env los siguientes campos: 
 
-    db_host='192.168.64.6'
+    db_host=''
     db_PORT=3306
 
 Datos a tener en cuenta: 
@@ -17,7 +17,7 @@ Datos a tener en cuenta:
 
 Para ingresar a sus base de datos:
 
-    db_USUARIO='lucas'
+    db_USUARIO=''
     db_CONTRASE=123456
 
 Podes completar o modificar a gusto la firma:
