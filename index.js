@@ -19,20 +19,8 @@ const jwt = require('jsonwebtoken');
 //     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 //   });
 
-
-try {
-    // nonExistentFunction();
-} catch (error) {
-    console.error(error);
-    // expected output: ReferenceError: nonExistentFunction is not defined
-    // Note - error messages will vary depending on browser
-}
-
-
-
-
 // Registrar Usuario
-// 
+
 servidor.post('/registrarse', async (req, res) => {
 
     const user = req.body.user;
@@ -308,16 +296,28 @@ servidor.put('/productos/removeCarrito', middlewere.checkJWT, async (req, res) =
         JSON.parse(listadoCar[0].carrito).forEach(element => {
             array.push(element);
         });
-        //buscamos el item entre los productos del carrito.
-        const found = (element) => element.nombre == nom;
-        // los eliminamos
-        array.splice(found, 1);
-
-        let parametroCar = JSON.stringify(array);
         let idCliente = idUsuario;
-        //volvemos a cargar el listado correcto
-        const prodActualizado = await usuarios.actualizarPedido(idCliente, parametroCar);
-        return res.status(200).json({ msg: 'Item removed', prodActualizado });
+        console.log('array ' + array)
+        console.log(array.length > 1)
+
+        if(array.length > 1){
+
+            console.log(array)
+            const found = array.findIndex(element => element[0].nombre == nom)
+            //const found = (element) => element.nombre == nom;
+            console.log(found)
+            // los eliminamos
+            array.splice(found, 1);
+            
+            let parametroCar = JSON.stringify(array);
+            //volvemos a cargar el listado correcto
+            const prodActualizado = await usuarios.actualizarPedido(idCliente, parametroCar);
+            return res.status(200).json({ msg: 'Item removed', prodActualizado });
+        }else{
+            console.log('shit')
+            const prodElminados = await usuarios.actualizarPedido(idCliente, "");
+            return res.status(200).json({ msg: 'Item removed', prodElminados });
+        }
     }
 });
 
@@ -383,8 +383,8 @@ servidor.post('/carrito/pedido', middlewere.checkJWT, async (req, res) => {
         listadoPedido.push(element[0].nombre);
         monto += element[0].precio;
     });
-    console.log(monto)
-    console.log(listadoAux)
+    //console.log(monto)
+    //console.log(listadoAux)
     // Buscar la direccion
 
     const data = await servicio.consutlaGenerica('usuarios', userID);
@@ -462,7 +462,7 @@ servidor.post('/pedido/estado', middlewere.checkJWT, middlewere.middleWereAdmin,
         if (estadoActualizado[0] == 0) {
             return res.status(200).json({ msg: 'No se realizaron cambios' });
         } else {
-            console.log(estadoActualizado)
+            //console.log(estadoActualizado)
             return res.status(200).json({ msg: 'Pedido Actualizado' });
         }
     }

@@ -24,7 +24,7 @@ async function carritoShow(){
     let total = 0
     let arrayAux = []
     let data = await myFetch("/carrito", "GET")
-    console.log(data)
+    console.log(data.carrito)
     try{
         if (data.msg == true) {
             arrayAux = data.carrito
@@ -75,8 +75,10 @@ async function carritoShow(){
 
 async function removeFromCart(id){
     let idProducto = { nombre: id }
-    let data = await myFetch("/removeCarrito", "PUT", idProducto)
+    console.log(id)
+    let data = await myFetch("/productos/removeCarrito", "PUT", idProducto)
     console.log(data)
+    window.location.href = "../carrito.html"
 }
 
 

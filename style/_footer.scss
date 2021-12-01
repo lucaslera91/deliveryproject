@@ -1,10 +1,57 @@
 footer{
-    height: 5vh;
-    width: 100%;
-    bottom: 0%;
-    border: 1px solid rgba(212, 212, 212, 1);
-    background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // background-color: rgba(0, 107, 119, 0.8);
+    width: auto;
+    //position: relative;
+    //bottom: 0px;
+    border-radius: 5px;
 }
-.auxFooter{
-    margin-bottom: 5vh;
+
+.iconosFooter{
+    padding: 3px;
+    background-color: rgba(0, 107, 119, 0.8);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: auto;
+} 
+.iconosFooter a{
+    text-decoration: none;
+    background-color: rgba(0, 107, 119, 0.8);
+    color: rgba(212, 212, 212, 1);
+    height: fit-content;
+    width: fit-content;
+    white-space: nowrap;
+}
+.start{
+    width: 99%;
+    position:absolute;
+    bottom:0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.iconosFooterStart {
+    
+    padding: 3px;
+    background-color: rgba(0, 107, 119, 0.8);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+} 
+.iconosFooterStart a{
+    text-decoration: none;
+    background-color: rgba(0, 107, 119, 0.8);
+    color: rgba(212, 212, 212, 1);
+    height: fit-content;
+    width: fit-content;
+    white-space: nowrap;
 }
